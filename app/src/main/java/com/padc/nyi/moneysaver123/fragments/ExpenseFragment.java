@@ -36,9 +36,9 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
     List<ExpenseVO> mExpenseVOList = new ArrayList<>();
 
     public ExpenseFragment() {
-        mExpenseVOList.add(new ExpenseVO("aaa", 120, 1));
-        mExpenseVOList.add(new ExpenseVO("bbb", 120, 1));
-        mExpenseVOList.add(new ExpenseVO("ccc", 120, 1));
+        mExpenseVOList.add(new ExpenseVO("Title A", 120, 1));
+        mExpenseVOList.add(new ExpenseVO("Title B", 120, 1));
+        mExpenseVOList.add(new ExpenseVO("Title C", 120, 1));
     }
 
     @Override
