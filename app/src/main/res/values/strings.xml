@@ -6,6 +6,10 @@
 
     <!--income-->
     <string name="title_activity_add_income">AddIncomeActivity</string>
-
-
+    <string name="label_date">Date</string>
+    <string name="label_category">Category</string>
+    <string name="lbl_amount">Amount</string>
+    <string name="label_note">Note</string>
+    <string name="save">Save</string>
+    <string name="lbl_title">Title</string>
 </resources>
