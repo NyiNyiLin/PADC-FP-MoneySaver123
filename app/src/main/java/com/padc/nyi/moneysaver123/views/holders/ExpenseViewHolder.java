@@ -31,7 +31,7 @@ public class ExpenseViewHolder extends RecyclerView.ViewHolder{
 
     public void bindData(ExpenseVO expenseVO){
         tvExpenseTitle.setText(expenseVO.getTitle());
-        tvExpenseCat.setText(expenseVO.getCategory_id() + "");
+        tvExpenseCat.setText(expenseVO.getCategory() + "");
         tvExpenseAmount.setText(expenseVO.getAmount() + "");
     }
 }

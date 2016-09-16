@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_medium"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_item"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/margin_medium"
+        android:paddingBottom="@dimen/margin_medium">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_expense_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/lbl_title"
+                android:textSize="@dimen/text_regular_2x"
+                android:textColor="@color/primary_text"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/margin_small"/>
+
+            <TextView
+                android:id="@+id/tv_expense_cat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Category"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/primary_text"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_expense_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="1200"
+            android:textSize="@dimen/text_regular_3x"
+            android:textColor="@color/primary_text"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_item"
+        android:paddingLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/margin_medium"
+        android:background="@color/primary"/>
+</RelativeLayout>

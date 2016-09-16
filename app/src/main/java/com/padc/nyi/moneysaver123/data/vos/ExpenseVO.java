@@ -11,6 +11,8 @@ public class ExpenseVO {
     int category_id;
     String note;
 
+    String []dummyCategory={"အစားအေသာက္", "အဝတ္အစား", "လမ္းစရိတ္", "ေဖ်ာ္ေျဖေရး", "ကားအသံုးစရိတ္", "အေထြေထြ"};
+
     public ExpenseVO() {
     }
 
@@ -46,5 +48,11 @@ public class ExpenseVO {
 
     public String getNote() {
         return note;
+    }
+
+    //This method is only for dummy data
+    //Category item may be extracted from database
+    public String getCategory(){
+        return dummyCategory[category_id];
     }
 }

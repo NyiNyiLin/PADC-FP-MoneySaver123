@@ -1,5 +1,6 @@
 package com.padc.nyi.moneysaver123.fragments;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,9 +37,8 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
     List<ExpenseVO> mExpenseVOList = new ArrayList<>();
 
     public ExpenseFragment() {
-        mExpenseVOList.add(new ExpenseVO("Title A", 120, 1));
-        mExpenseVOList.add(new ExpenseVO("Title B", 120, 1));
-        mExpenseVOList.add(new ExpenseVO("Title C", 120, 1));
+        mExpenseVOList.add(new ExpenseVO("ရံုးသြား", 300, 2));
+        mExpenseVOList.add(new ExpenseVO("ေန႕လည္စာ", 2500, 0));
     }
 
     @Override
@@ -52,6 +52,8 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
         ButterKnife.bind(this, view);
+
+
         fabAddExpense.setOnClickListener(this);
 
         mExpenseListAdapter = new ExpenseListAdapter(mExpenseVOList);
