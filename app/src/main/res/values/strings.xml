@@ -5,11 +5,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--income-->
-    <string name="title_activity_add_income">AddIncomeActivity</string>
+    <string name="title_activity_add_income">Add Income</string>
     <string name="label_date">Date</string>
     <string name="label_category">Category</string>
     <string name="lbl_amount">Amount</string>
-    <string name="label_note">Note</string>
+    <string name="label_note">Notes</string>
     <string name="save">Save</string>
     <string name="lbl_title">Title</string>
+    <string name="lbl_info">Info</string>
+
 </resources>

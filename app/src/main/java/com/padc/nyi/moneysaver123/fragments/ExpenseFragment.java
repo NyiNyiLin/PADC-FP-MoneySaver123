@@ -60,6 +60,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener{
         int gridColumnSpanCount = 1;
         rvExpenseList.setLayoutManager(new GridLayoutManager(getContext(), gridColumnSpanCount));
         return view;
+
     }
 
 
