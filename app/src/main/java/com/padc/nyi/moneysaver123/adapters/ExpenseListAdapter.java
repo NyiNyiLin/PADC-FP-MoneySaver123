@@ -19,16 +19,18 @@ import java.util.zip.Inflater;
 public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseViewHolder> {
     private LayoutInflater mInflater;
     private List<ExpenseVO> mExpenseVOList;
+    private ExpenseViewHolder.ControllerExpenseItem mControllerExpenseItem;
 
-    public ExpenseListAdapter(List<ExpenseVO> mExpenseVOList) {
+    public ExpenseListAdapter(List<ExpenseVO> mExpenseVOList, ExpenseViewHolder.ControllerExpenseItem mControllerExpenseItem) {
         mInflater = LayoutInflater.from(MoneySaverApp.getContext());
         this.mExpenseVOList = mExpenseVOList;
+        this.mControllerExpenseItem = mControllerExpenseItem;
     }
 
     @Override
     public ExpenseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.view_item_expense, parent, false);
-        return new ExpenseViewHolder(itemView);
+        View itemView = mInflater.inflate(R.layout.view_item_expense1, parent, false);
+        return new ExpenseViewHolder(itemView, mControllerExpenseItem);
     }
 
     @Override
