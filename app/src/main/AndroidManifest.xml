@@ -24,6 +24,8 @@
             android:name=".activities.AddIncomeActivity"
             android:label="@string/title_activity_add_income"
             android:theme="@style/AppTheme.NoActionBar">
+
+
     </activity>
 
     <activity
