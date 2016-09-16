@@ -18,6 +18,7 @@
     <string name="lbl_expense_amount">သံုးလိုက္ေသာ ေငြ (က်ပ္)</string>
     <string name="lbl_expense_category">အမ်ိဳးအစား</string>
     <string name="lbl_expense_date">ေန႔စြဲ</string>
+    <string name="lbl_expense_note">မွတ္ခ်က္</string>
 
 
 </resources>
