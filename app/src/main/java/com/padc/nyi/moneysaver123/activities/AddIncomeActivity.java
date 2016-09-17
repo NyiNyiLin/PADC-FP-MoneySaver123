@@ -50,7 +50,7 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
 
         setSupportActionBar(toolbar);
 
-        final String []dummyCategory={"Internet", "PhoneBill", "Clothing", "Medical", "Food", "Entertainment"};
+        final String []dummyCategory={"လစဥ္ဝင္ေငြ", "စာသင္တဲ့ဝင္ေငြ"};
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);

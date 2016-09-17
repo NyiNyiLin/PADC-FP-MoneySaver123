@@ -25,12 +25,18 @@ public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.On
     @BindView(R.id.tv_income_amount)
     TextView tvIncomeAmount;
 
-    public IncomeViewHolder(View itemView) {
+    private ControllerIncomeItem mControllerIncomeItem;
+    private IncomeVOS mIncomeVo;
+
+    public IncomeViewHolder(View itemView, ControllerIncomeItem mControllerIncomeItem) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        itemView.setOnClickListener(this);
+        this.mControllerIncomeItem = mControllerIncomeItem;
     }
 
     public void bindData(IncomeVOS incomeVO){
+        mIncomeVo = incomeVO;
         tvIncomeTitle.setText(incomeVO.getTitle());
         tvIncomeCat.setText(incomeVO.getCategory_id() + "");
         tvIncomeAmount.setText(incomeVO.getAmount() + "");
@@ -38,6 +44,10 @@ public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View view) {
+        mControllerIncomeItem.onTapIncome(mIncomeVo);
+    }
 
+    public interface ControllerIncomeItem{
+        void onTapIncome(IncomeVOS incomeVOS);
     }
 }

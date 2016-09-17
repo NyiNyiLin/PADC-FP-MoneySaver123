@@ -15,13 +15,13 @@ import butterknife.ButterKnife;
  */
 public class ExpenseViewHolder extends RecyclerView.ViewHolder{
 
-    @BindView(R.id.tv_expense_title)
+    @BindView(R.id.tv_income_title)
     TextView tvExpenseTitle;
 
-    @BindView(R.id.tv_expense_cat)
+    @BindView(R.id.tv_income_cat)
     TextView tvExpenseCat;
 
-    @BindView(R.id.tv_expense_amount)
+    @BindView(R.id.tv_income_amount)
     TextView tvExpenseAmount;
 
     public ExpenseViewHolder(View itemView) {

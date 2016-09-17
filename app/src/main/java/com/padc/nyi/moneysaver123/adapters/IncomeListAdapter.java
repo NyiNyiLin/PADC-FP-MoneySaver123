@@ -19,16 +19,18 @@ public class IncomeListAdapter extends RecyclerView.Adapter<IncomeViewHolder>{
 
     private LayoutInflater mInflater;
     private List<IncomeVOS> mIncomeVOList;
+    private IncomeViewHolder.ControllerIncomeItem mControllerIncomeItem;
 
-    public IncomeListAdapter(List<IncomeVOS> mExpenseVOList) {
+    public IncomeListAdapter(List<IncomeVOS> mExpenseVOList, IncomeViewHolder.ControllerIncomeItem mControllerIncomeItem) {
         mInflater = LayoutInflater.from(MoneySaverApp.getContext());
         this.mIncomeVOList = mExpenseVOList;
+        this.mControllerIncomeItem = mControllerIncomeItem;
     }
 
     @Override
     public IncomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.view_item_income, parent, false);
-        return new IncomeViewHolder(itemView);
+        return new IncomeViewHolder(itemView, mControllerIncomeItem);
     }
 
     @Override
