@@ -2,6 +2,7 @@ package com.padc.nyi.moneysaver123.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -49,6 +50,11 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         ButterKnife.bind(this, this);
 
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setTitle("ဝင္ေငြထည့္ရန္");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         final String []dummyCategory={"လစဥ္ဝင္ေငြ", "စာသင္တဲ့ဝင္ေငြ"};
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
@@ -71,14 +77,12 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showThirdPartyDatePicker();
             }
         });
 
        //back to income fragment
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
     private void getCurrentDate(){
         Calendar now = Calendar.getInstance();
@@ -93,7 +97,6 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -123,17 +126,16 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
+        int id = item.getItemId();
+        /*switch (id) {
             case android.R.id.home:
-                // app icon in action bar clicked; go home
-                Intent intent = new Intent(this,HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+                this.finish();
+                break;
+        }*/
 
+        if(id == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

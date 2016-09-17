@@ -6,17 +6,17 @@
 
     <!--income-->
     <string name="title_activity_add_income">Add Income</string>
-    <string name="label_date">Date</string>
-    <string name="label_category">Category</string>
-    <string name="lbl_amount">Amount</string>
-    <string name="label_note">Notes</string>
-    <string name="save">Save</string>
-    <string name="lbl_title">Title</string>
-    <string name="lbl_info">Info</string>
-    <string name="lbl_income_title">income_title</string>
-    <string name="lbl_income_amount">lbl_income_amount</string>
-    <string name="lbl_income_category">lbl_icome_category</string>
-    <string name="lbl_income_date">lbl_income_data</string>
-    <string name="lbl_income_note">lbl_income_note</string>
+    <string name="label_date">ေန႔ရက္</string>
+    <string name="label_category">အမ်ဳိးအစား</string>
+    <string name="lbl_amount">ပမာဏ</string>
+    <string name="label_note">စာတို</string>
+    <string name="save">သိမ္းရန္</string>
+    <string name="lbl_title">အေၾကာင္းအရာ</string>
+    <string name="lbl_info">အေၾကာင္းအရာ</string>
+    <string name="lbl_income_title">အေၾကာင္းအရာ</string>
+    <string name="lbl_income_amount">ပမာဏ</string>
+    <string name="lbl_income_category">အမ်ဳိးအစား</string>
+    <string name="lbl_income_date">ေန႔ရက္</string>
+    <string name="lbl_income_note">မွတ္ခ်က္</string>
 
 </resources>
