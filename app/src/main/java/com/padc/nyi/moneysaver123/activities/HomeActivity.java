@@ -125,7 +125,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void navigateToIncome(){
-
+        if(actionBar != null){
+            actionBar.setTitle("ဝင္ေငြစာရင္း ");
+        }
         IncomeFragment incomeFragment = new IncomeFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -143,7 +145,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void navigateToBill(){
-
+        if(actionBar != null){
+            actionBar.setTitle("ေပးေဆာင္ရမည့္ေဘစာရင္း");
+        }
         BillFragment billFragment = new BillFragment();
         getSupportFragmentManager()
                 .beginTransaction()

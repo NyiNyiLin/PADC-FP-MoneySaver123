@@ -1,13 +1,22 @@
 package com.padc.nyi.moneysaver123.data.vos;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.util.Log;
+
+import com.padc.nyi.moneysaver123.MoneySaverApp;
+import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+
 /**
  * Created by IN-3442 on 11-Sep-16.
  */
-public class ExpenseVO {
+public class ExpenseVO{
 
     String title;
     int amount;
-    String date;
+    int date;
     int category_id;
     String note;
 
@@ -16,7 +25,31 @@ public class ExpenseVO {
     public ExpenseVO() {
     }
 
-    public ExpenseVO(String title, int amount, String date, int category_id, String note) {
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setDate(int date) {
+        this.date = date;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setDummyCategory(String[] dummyCategory) {
+        this.dummyCategory = dummyCategory;
+    }
+
+    public ExpenseVO(String title, int amount, int date, int category_id, String note) {
         this.title = title;
         this.amount = amount;
         this.date = date;
@@ -30,6 +63,35 @@ public class ExpenseVO {
         this.category_id = category_id;
     }
 
+    private ContentValues parseToContentValues() {
+        ContentValues cv = new ContentValues();
+
+        cv.put(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE, title);
+        cv.put(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_AMOUNT, amount);
+        cv.put(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE, date);
+        cv.put(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_CATEGORY_ID, category_id);
+        cv.put(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_NOTE, note);
+        return cv;
+    }
+    public static ExpenseVO parseToExpenseVO(Cursor data){
+        ExpenseVO expenseVO = new ExpenseVO();
+
+        expenseVO.setTitle(data.getString(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE)));
+        expenseVO.setAmount(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_AMOUNT)));
+        expenseVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE)));
+        expenseVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_CATEGORY_ID)));
+        expenseVO.setNote(data.getString(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_NOTE)));
+
+        return expenseVO;
+    }
+
+    public static void saveExpense(ExpenseVO expenseVO) {
+        Context context = MoneySaverApp.getContext();
+        Uri insertedUri = context.getContentResolver().insert(MoneySaverContract.ExpenseEntry.CONTENT_URI, expenseVO.parseToContentValues());
+        Log.d(MoneySaverApp.TAG, "Successfully inserted into expense table : " + insertedUri);
+    }
+
+
     public String getTitle() {
         return title;
     }
@@ -38,7 +100,7 @@ public class ExpenseVO {
         return amount;
     }
 
-    public String getDate() {
+    public int getDate() {
         return date;
     }
 
