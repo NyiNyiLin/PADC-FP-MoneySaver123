@@ -13,100 +13,106 @@
     tools:showIn="@layout/activity_add_income">
 
     <LinearLayout
-        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/margin_medium_2">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_date"/>
-
-            <TextView
-                android:id="@+id/txt_date"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/backgroud_border"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:text="@string/lbl_income_title"
+            android:textSize="@dimen/text_regular"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_category"/>
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroud_border"
+            android:padding="@dimen/margin_medium"
+            android:textSize="@dimen/text_regular"
+            android:layout_marginBottom="@dimen/margin_medium_2"/>
+
+        <TextView
+            android:id="@+id/txt_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_income_amount"
+            android:textSize="@dimen/text_regular"/>
+
+        <EditText
+            android:id="@+id/et_amount"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroud_border"
+            android:padding="@dimen/margin_medium"
+            android:textSize="@dimen/text_regular"
+            android:inputType="number"
+            android:layout_marginBottom="@dimen/margin_medium_2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_income_category"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/margin_medium_2"
+            android:background="@drawable/backgroud_border">
 
             <Spinner
                 android:id="@+id/spinner_category"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/backgroud_border"
-                />
+                android:gravity="center"
+                android:spinnerMode="dropdown"/>
 
         </LinearLayout>
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_income_date"
+            android:textSize="@dimen/text_regular"/>
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroud_border"
+            android:textSize="@dimen/text_regular"
+            android:padding="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium_2"/>
+
+        <TextView
+            android:id="@+id/lbl_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_income_note"/>
+
+        <EditText
+            android:id="@+id/et_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroud_border"
+            android:gravity="start"
+            android:padding="@dimen/margin_medium"
+            android:maxLines="3"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay"
+            android:overScrollMode="always"
+            android:scrollbarSize="12dp"/>
+
+
+        <Button
+            android:id="@+id/btn_expense_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_income" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txt_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout"
-        android:text="@string/lbl_amount"
-        android:textSize="@dimen/text_regular_3x"
-        android:layout_centerHorizontal="true"/>
-
-    <EditText
-        android:id="@+id/et_amount"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_amount"
-        android:background="@drawable/backgroud_border"
-        android:layout_centerHorizontal="true"
-        android:padding="@dimen/margin_medium"
-        android:textSize="@dimen/text_regular_3x"
-        android:inputType="number"/>
-
-    <TextView
-        android:id="@+id/lbl_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_note"
-        android:layout_below="@id/et_amount"
-        android:layout_marginTop="@dimen/margin_medium_2"/>
-
-    <Button
-        android:id="@+id/btn_expense_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        />
-
-    <EditText
-        android:id="@+id/et_note"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/lbl_note"
-        android:layout_above="@id/btn_expense_save"
-        android:background="@drawable/backgroud_border"
-        android:gravity="start"
-        android:padding="@dimen/margin_medium"/>
 
 
 </RelativeLayout>

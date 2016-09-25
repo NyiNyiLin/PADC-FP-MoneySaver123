@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_expense"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Expense" />
+            android:title="@string/left_menu_expense" />
         <item
             android:id="@+id/nav_income"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Income" />
+            android:title="@string/left_menu_income" />
         <item
             android:id="@+id/nav_expense_category"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Category" />
+            android:title="@string/left_menu_expense_category" />
         <item
             android:id="@+id/nav_bill"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Bill" />
+            android:title="@string/left_menu_reminder_for_bill" />
     </group>
 
 

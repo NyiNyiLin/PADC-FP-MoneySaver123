@@ -11,7 +11,6 @@ import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.padc.nyi.moneysaver123.views.holders.ExpenseViewHolder;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by IN-3442 on 11-Sep-16.
@@ -25,6 +24,12 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseViewHolder> 
         mInflater = LayoutInflater.from(MoneySaverApp.getContext());
         this.mExpenseVOList = mExpenseVOList;
         this.mControllerExpenseItem = mControllerExpenseItem;
+    }
+
+    public void addAllList(List<ExpenseVO> expenseVOList){
+        mExpenseVOList.clear();
+        mExpenseVOList = expenseVOList;
+        notifyDataSetChanged();
     }
 
     @Override

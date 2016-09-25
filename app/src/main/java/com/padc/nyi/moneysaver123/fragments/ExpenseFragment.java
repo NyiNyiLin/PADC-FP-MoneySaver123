@@ -1,12 +1,16 @@
 package com.padc.nyi.moneysaver123.fragments;
 
-import android.app.ActionBar;
+
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +18,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.activities.AddExpenseActivity;
 import com.padc.nyi.moneysaver123.adapters.ExpenseListAdapter;
+import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.padc.nyi.moneysaver123.views.holders.ExpenseViewHolder;
 
@@ -31,7 +36,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ZMTH on 9/5/2016.
  */
-public class ExpenseFragment extends Fragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem{
+public class ExpenseFragment extends Fragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem, LoaderManager.LoaderCallbacks<Cursor>{
     @BindView(R.id.rv_expense_list)
     RecyclerView rvExpenseList;
 
@@ -42,14 +47,16 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
     List<ExpenseVO> mExpenseVOList = new ArrayList<>();
 
     public ExpenseFragment() {
-        mExpenseVOList.add(new ExpenseVO("ရံုးသြား", 300, 2));
-        mExpenseVOList.add(new ExpenseVO("ေန႕လည္စာ", 2500, 0));
+        /*mExpenseVOList.add(new ExpenseVO("ရံုးသြား", 300, 2));
+        mExpenseVOList.add(new ExpenseVO("ေန႕လည္စာ", 2500, 0));*/
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
+        getLoaderManager().initLoader(1,null,this);
     }
 
     @Nullable
@@ -110,6 +117,35 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
         AlertDialog alert1 = alert.create();
 
         alert1.show();
+
+    }
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(MoneySaverApp.getContext(),
+                MoneySaverContract.ExpenseEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        List<ExpenseVO> expenseVOList = new ArrayList<>();
+        if(data != null && data.moveToFirst()) {
+            do {
+                ExpenseVO expenseVO = ExpenseVO.parseToExpenseVO(data);
+                expenseVOList.add(expenseVO);
+            }while (data.moveToNext());
+        }
+
+        mExpenseListAdapter.addAllList(expenseVOList);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

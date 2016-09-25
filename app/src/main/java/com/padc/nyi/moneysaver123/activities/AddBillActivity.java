@@ -2,21 +2,16 @@ package com.padc.nyi.moneysaver123.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
-import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
-import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -27,77 +22,39 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddExpenseActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener{
+/**
+ * Created by ZMTH on 9/24/2016.
+ */
+public class AddBillActivity extends AppCompatActivity  implements  DatePickerDialog.OnDateSetListener{
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @BindView(R.id.txt_date)
     TextView tvDate;
 
-    @BindView(R.id.et_title)
-    EditText etExpenseTitle;
-
-    @BindView(R.id.et_amount)
-    EditText etExpenseAmount;
-
-    @BindView(R.id.spinner_category)
-    Spinner spinnerCategory;
-
-    @BindView(R.id.et_note)
-    EditText etExpenseNote;
-
-    @BindView(R.id.btn_expense_save)
-    Button btnExpenseSave;
-
     SimpleDateFormat dateFormatter;
 
-    ExpenseVO expenseVO;
-
-    int dateInNum;
-
     public static Intent newIntent(){
-        Intent intent = new Intent(MoneySaverApp.getContext(), AddExpenseActivity.class);
+        Intent intent = new Intent(MoneySaverApp.getContext(), AddBillActivity.class);
         return intent;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_expense);
-        ButterKnife.bind(this, this);
+        setContentView(R.layout.activity_add_bill);
 
+        ButterKnife.bind(this, this);
         setSupportActionBar(toolbar);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            actionBar.setTitle("သံုးလိုက္ေသာ ေငြထည့္ရန္");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        final String []dummyCategory={"အစားအေသာက္", "အဝတ္အစား", "လမ္းစရိတ္", "ေဖ်ာ္ေျဖေရး", "ကားအသံုးစရိတ္", "အေထြေထြ"};
-        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(adapter);
-
-        //getCurrentDate();
-
-
-        btnExpenseSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                expenseVO = new ExpenseVO();
-
-                expenseVO.setTitle(etExpenseTitle.getText().toString());
-                expenseVO.setAmount(Integer.parseInt(etExpenseAmount.getText().toString()));
-                //expenseVO.setDate(tvDate.getText());
-                expenseVO.setNote(etExpenseNote.getText().toString());
-
-                MoneySaverModel.getInstance().saveExpense(expenseVO);
-
-
-            }
-        });
+        getCurrentDate();
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -113,7 +70,6 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
     public void onClickDate(View view){
         showThirdPartyDatePicker();
     }
-
     private void getCurrentDate(){
         Calendar now = Calendar.getInstance();
 
@@ -144,21 +100,11 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         try {
-            /*dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
             String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
             Date date = dateFormatter.parse(dateInString);
             dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(dateFormatter.format(date).toString());*/
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(year, monthOfYear, dayOfMonth);
-
-            dateInNum = (int) (calendar.getTimeInMillis() / 100);
-
-            calendar.setTimeInMillis(dateInNum * 100);
-            Date date1 = calendar.getTime();
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(dateFormatter.format(date1).toString());
+            tvDate.setText(dateFormatter.format(date).toString());
 
         }catch (Exception e){
             e.printStackTrace();

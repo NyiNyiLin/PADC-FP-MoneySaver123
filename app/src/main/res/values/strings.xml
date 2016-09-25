@@ -19,6 +19,24 @@
     <string name="lbl_expense_category">အမ်ိဳးအစား</string>
     <string name="lbl_expense_date">ေန႔စြဲ</string>
     <string name="lbl_expense_note">မွတ္ခ်က္</string>
+    <string name="save_expense">သိမ္းရန္</string>
 
+
+    <!-- income -->
+    <string name="lbl_income_title">အေၾကာင္းအရာ</string>
+    <string name="lbl_income_amount">စုစုေပါင္း ဝင္ေငြ (က်ပ္)</string>
+    <string name="lbl_income_category">အမ်ိဳးအစား</string>
+    <string name="lbl_income_date">ေန႔စြဲ</string>
+    <string name="lbl_income_note">မွတ္ခ်က္</string>
+    <string name="save_income">သိမ္းရန္</string>
+    <string name="title_activity_add_bill">ေပးေဆာင္ရမည့္ေဘ ျဖည့္ရန္</string>
+
+    <string name="save_bill">သိမ္းရန္</string>
+    <string name="left_menu_expense">သံုးေငြ</string>
+    <string name="left_menu_income">ဝင္ေငြ</string>
+    <string name="left_menu_expense_category">အသံုးစရိတ္ အမ်ဳိးအစား</string>
+    <string name="left_menu_reminder_for_bill">ေပးေဆာင္ရမည့္ေဘ</string>
+
+    <string name="content_authority">com.padc.nyi.moneysaver123</string>
 
 </resources>
