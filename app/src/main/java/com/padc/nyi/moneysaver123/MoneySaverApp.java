@@ -11,6 +11,9 @@ import android.content.Context;
  * Created by IN-3442 on 04-Sep-16.
  */
 public class MoneySaverApp extends Application{
+
+    public static final String TAG = "MoneySaverApp";
+
     private static Context context;
 
     @Override

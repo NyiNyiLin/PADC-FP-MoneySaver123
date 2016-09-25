@@ -3,7 +3,7 @@ package com.padc.nyi.moneysaver123.data.vos;
 /**
  * Created by ZMTH on 9/11/2016.
  */
-public class IncomeVOS {
+public class IncomeVO {
 
     String title;
     int amount;
@@ -11,10 +11,10 @@ public class IncomeVOS {
     int category_id;
     String note;
 
-    public IncomeVOS() {
+    public IncomeVO() {
     }
 
-    public IncomeVOS(String title, int amount, String date, int category_id, String note) {
+    public IncomeVO(String title, int amount, String date, int category_id, String note) {
         this.title = title;
         this.amount = amount;
         this.date = date;
@@ -22,7 +22,7 @@ public class IncomeVOS {
         this.note = note;
     }
 
-    public IncomeVOS(String title, int amount, int category_id) {
+    public IncomeVO(String title, int amount, int category_id) {
         this.title = title;
         this.amount = amount;
         this.category_id = category_id;
