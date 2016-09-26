@@ -20,7 +20,8 @@ public class MoneySaverProvider  extends ContentProvider {
     public static final int INCOME = 200;
     public static final int BILL = 300;
 
-    private static final String sMoneyTitleSelection = MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE + " = ?";
+    private static final String sExpenseTitleSelection = MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE + " = ?";
+    private static final String sIncomeTitleSelection = MoneySaverContract.IncomeEntry.COLUMN_INCOME_TITLE + " = ?";
 
     private MoneySaverDBHelper mMoneySaverDBHelper;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
@@ -40,9 +41,9 @@ public class MoneySaverProvider  extends ContentProvider {
 
         switch (matchUri) {
             case EXPENSE:
-                String attractionTitle = MoneySaverContract.ExpenseEntry.getTitleFromParam(uri);
+                String attractionTitle = MoneySaverContract.ExpenseEntry.getExpenseTitleFromParam(uri);
                 if (!TextUtils.isEmpty(attractionTitle)) {
-                    selection = sMoneyTitleSelection;
+                    selection = sExpenseTitleSelection;
                     selectionArgs = new String[]{attractionTitle};
                 }
                 queryCursor = mMoneySaverDBHelper.getReadableDatabase().query(MoneySaverContract.ExpenseEntry.TABLE_NAME,
@@ -51,6 +52,20 @@ public class MoneySaverProvider  extends ContentProvider {
                         selectionArgs,
                         null, //group_by
                         null, //having
+                        sortOrder);
+                break;
+            case INCOME:
+                String title = MoneySaverContract.IncomeEntry.getIncomeTitleFromParam(uri);
+                if (title != null) {
+                    selection = sIncomeTitleSelection;
+                    selectionArgs = new String[]{title};
+                }
+                queryCursor = mMoneySaverDBHelper.getReadableDatabase().query(MoneySaverContract.IncomeEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
                         sortOrder);
                 break;
 
@@ -76,7 +91,8 @@ public class MoneySaverProvider  extends ContentProvider {
         switch (matchUri){
             case EXPENSE:
                 return MoneySaverContract.ExpenseEntry.DIR_TYPE;
-
+            case INCOME:
+                return MoneySaverContract.IncomeEntry.DIR_TYPE;
         }
         return null;
     }
@@ -99,6 +115,16 @@ public class MoneySaverProvider  extends ContentProvider {
                 }
                 break;
             }
+            case INCOME: {
+                long _id = db.insert(MoneySaverContract.IncomeEntry.TABLE_NAME, null, contentValues);
+                if (_id > 0) {
+                    insertedUri = MoneySaverContract.IncomeEntry.buildIncomeUri(_id);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }
@@ -115,6 +141,7 @@ public class MoneySaverProvider  extends ContentProvider {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         uriMatcher.addURI(MoneySaverContract.CONTENT_AUTHORITY, MoneySaverContract.PATH_EXPENSE, EXPENSE);
+        uriMatcher.addURI(MoneySaverContract.CONTENT_AUTHORITY, MoneySaverContract.PATH_INCOME, INCOME);
         return uriMatcher;
     }
 
@@ -124,6 +151,8 @@ public class MoneySaverProvider  extends ContentProvider {
         switch (matchUri) {
             case EXPENSE:
                 return MoneySaverContract.ExpenseEntry.TABLE_NAME;
+            case INCOME:
+                return MoneySaverContract.IncomeEntry.TABLE_NAME;
             default:
                 throw new UnsupportedOperationException("Unknown uri : " + uri);
         }

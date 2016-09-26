@@ -1,4 +1,4 @@
-package com.padc.nyi.moneysaver123.view.holder;
+package com.padc.nyi.moneysaver123.views.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,10 +11,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by ZMTH on 9/10/2016.
+ * Created by ZMTH on 9/26/2016.
  */
-public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     @BindView(R.id.tv_income_title)
     TextView tvIncomeTitle;

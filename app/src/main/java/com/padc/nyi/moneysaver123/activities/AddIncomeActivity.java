@@ -8,11 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
+import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
+import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -27,16 +30,30 @@ import butterknife.OnClick;
  * Created by ZMTH on 9/10/2016.
  */
 public class AddIncomeActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.et_title)
+    EditText etIncomeTitle;
+
+    @BindView(R.id.et_amount)
+    EditText etIncomeAmount;
+
     @BindView(R.id.spinner_category)
-    Spinner spinnerCategory;
+    Spinner spinnerIncomeCategory;
+
+    @BindView(R.id.et_note)
+    EditText etIncomeNote;
 
     @BindView(R.id.txt_date)
     TextView tvDate;
 
+    @BindView(R.id.btn_income_save)
+    TextView btnIncomeSave;
+
     SimpleDateFormat dateFormatter;
+    IncomeVO incomeVO;
 
     /*static factory method*/
     public static Intent newIntent(){
@@ -60,9 +77,24 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         final String []dummyCategory={"aaa", "bbb"};
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(adapter);
+        spinnerIncomeCategory.setAdapter(adapter);
 
         getCurrentDate();
+
+        btnIncomeSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                incomeVO = new IncomeVO();
+
+                incomeVO.setTitle(etIncomeTitle.getText().toString());
+                incomeVO.setAmount(Integer.parseInt(etIncomeAmount.getText().toString()));
+                //incomeVO.setDate(tvDate.getText();
+                incomeVO.setNote(etIncomeNote.getText().toString());
+
+                MoneySaverModel.getInstance().saveIncome(incomeVO);
+            }
+        });
+
 
     }
 

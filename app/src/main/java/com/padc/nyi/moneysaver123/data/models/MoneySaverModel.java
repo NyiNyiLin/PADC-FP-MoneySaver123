@@ -1,6 +1,7 @@
 package com.padc.nyi.moneysaver123.data.models;
 
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
+import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
 
 /**
  * Created by ZMTH on 9/25/2016.
@@ -26,5 +27,9 @@ public class MoneySaverModel extends BaseModel{
 
     public void saveExpense(ExpenseVO expenseVO){
         ExpenseVO.saveExpense(expenseVO);
+    }
+
+    public void saveIncome(IncomeVO incomeVO){
+        IncomeVO.saveIncome(incomeVO);
     }
 }
