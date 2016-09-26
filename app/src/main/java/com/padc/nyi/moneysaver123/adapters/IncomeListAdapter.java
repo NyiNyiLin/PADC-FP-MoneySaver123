@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
-import com.padc.nyi.moneysaver123.view.holder.IncomeViewHolder;
+import com.padc.nyi.moneysaver123.views.holders.IncomeViewHolder;
 
 import java.util.List;
 
@@ -26,6 +26,12 @@ public class IncomeListAdapter extends RecyclerView.Adapter<IncomeViewHolder>{
         mInflater = LayoutInflater.from(MoneySaverApp.getContext());
         this.mIncomeVOList = mExpenseVOList;
         this.mControllerIncomeItem = mControllerIncomeItem;
+    }
+
+    public void addAllList(List<IncomeVO> incomeVOList){
+        mIncomeVOList.clear();
+        mIncomeVOList = incomeVOList;
+        notifyDataSetChanged();
     }
 
     @Override

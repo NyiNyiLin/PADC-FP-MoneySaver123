@@ -92,8 +92,6 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
                 expenseVO.setNote(etExpenseNote.getText().toString());
 
                 MoneySaverModel.getInstance().saveExpense(expenseVO);
-
-
             }
         });
     }

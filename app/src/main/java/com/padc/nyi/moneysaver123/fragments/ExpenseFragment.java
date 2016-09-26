@@ -111,7 +111,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
         tvAmount.setText(expenseVO.getAmount() + "");
         tvCat.setText(expenseVO.getCategory());
         tvDate.setText("24 Sept 2016");
-        tvNote.setText("Just a Note");
+        tvNote.setText(expenseVO.getNote());
 
         // create an alert dialog
         AlertDialog alert1 = alert.create();

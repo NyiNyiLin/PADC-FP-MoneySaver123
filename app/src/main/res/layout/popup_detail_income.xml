@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_medium">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv_title_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chrome_reader_mode_black_24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_medium_2"
+            />
+
+        <TextView
+            android:id="@+id/tv_lbl_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_income_title"
+            android:textSize="@dimen/text_regular"
+            android:textColor="@color/primary"
+            android:layout_toRightOf="@id/iv_title_image"/>
+
+        <TextView
+            android:id="@+id/tv_detail_income_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_lbl_detail_title"
+            android:layout_toRightOf="@id/iv_title_image"
+            android:text="@string/lbl_income_title"
+            android:textSize="@dimen/text_regular_3x"
+            android:layout_marginBottom="@dimen/margin_medium"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv_amount_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_attach_money_black_24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_medium_2"
+            />
+
+        <TextView
+            android:id="@+id/tv_lbl_detail_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_amount_image"
+            android:text="@string/lbl_income_amount"
+            android:textSize="@dimen/text_regular"
+            android:textColor="@color/primary"
+            />
+
+        <TextView
+            android:id="@+id/tv_detail_income_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_lbl_detail_amount"
+            android:layout_toRightOf="@id/iv_amount_image"
+            android:text="@string/lbl_income_amount"
+            android:textSize="@dimen/text_regular_3x"
+            android:layout_marginBottom="@dimen/margin_medium"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv_cat_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_subject_black_24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_medium_2"
+            />
+
+        <TextView
+            android:id="@+id/tv_lbl_detail_cat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_cat_image"
+            android:text="@string/lbl_income_category"
+            android:textSize="@dimen/text_regular"
+            android:textColor="@color/primary"
+            />
+
+        <TextView
+            android:id="@+id/tv_detail_income_cat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_lbl_detail_cat"
+            android:layout_toRightOf="@id/iv_cat_image"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:text="@string/lbl_income_category"
+            android:textSize="@dimen/text_regular_3x"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv_date_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_today_black_24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_medium_2"
+            />
+
+        <TextView
+            android:id="@+id/tv_lbl_detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_date_image"
+            android:text="@string/lbl_income_date"
+            android:textSize="@dimen/text_regular"
+            android:textColor="@color/primary"
+            />
+
+        <TextView
+            android:id="@+id/tv_detail_income_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_lbl_detail_date"
+            android:layout_toRightOf="@id/iv_date_image"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:text="@string/lbl_income_date"
+            android:textSize="@dimen/text_regular_3x"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv_note_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_library_books_black_24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_medium_2"
+            />
+
+        <TextView
+            android:id="@+id/tv_lbl_detail_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_note_image"
+            android:text="@string/lbl_income_note"
+            android:textSize="@dimen/text_regular"
+            android:textColor="@color/primary"
+            />
+
+        <TextView
+            android:id="@+id/tv_detail_income_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_lbl_detail_note"
+            android:layout_toRightOf="@id/iv_note_image"
+            android:text="@string/lbl_income_note"
+            android:textSize="@dimen/text_regular_3x"/>
+    </RelativeLayout>
+
+</LinearLayout>
