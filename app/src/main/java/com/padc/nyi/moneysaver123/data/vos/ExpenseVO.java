@@ -16,7 +16,8 @@ public class ExpenseVO{
 
     String title;
     int amount;
-    int date;
+    long date;
+    String textDate;
     int category_id;
     String note;
 
@@ -33,7 +34,7 @@ public class ExpenseVO{
         this.amount = amount;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
@@ -49,10 +50,17 @@ public class ExpenseVO{
         this.dummyCategory = dummyCategory;
     }
 
-    public ExpenseVO(String title, int amount, int date, int category_id, String note) {
+    public ExpenseVO(String title, int amount, long date, int category_id, String note) {
         this.title = title;
         this.amount = amount;
         this.date = date;
+        this.category_id = category_id;
+        this.note = note;
+    }
+    public ExpenseVO(String title, int amount, String textDate, int category_id, String note) {
+        this.title = title;
+        this.amount = amount;
+        this.textDate = textDate;
         this.category_id = category_id;
         this.note = note;
     }
@@ -78,8 +86,8 @@ public class ExpenseVO{
 
         expenseVO.setTitle(data.getString(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE)));
         expenseVO.setAmount(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_AMOUNT)));
-        expenseVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE)));
-        expenseVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_CATEGORY_ID)));
+        expenseVO.setDate(data.getLong(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE)));
+        expenseVO.setCategory_id(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_CATEGORY_ID)));
         expenseVO.setNote(data.getString(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_NOTE)));
 
         return expenseVO;
@@ -91,6 +99,13 @@ public class ExpenseVO{
         Log.d(MoneySaverApp.TAG, "Successfully inserted into expense table : " + insertedUri);
     }
 
+    public String getTextDate() {
+        return textDate;
+    }
+
+    public void setTextDate(String textDate) {
+        this.textDate = textDate;
+    }
 
     public String getTitle() {
         return title;
@@ -100,7 +115,7 @@ public class ExpenseVO{
         return amount;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 

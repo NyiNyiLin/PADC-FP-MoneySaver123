@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +55,8 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
 
     ExpenseVO expenseVO;
 
-    int dateInNum;
+    long dateInNum;
+    int catID;
 
     public static Intent newIntent(){
         Intent intent = new Intent(MoneySaverApp.getContext(), AddExpenseActivity.class);
@@ -76,9 +79,20 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         final String []dummyCategory={"အစားအေသာက္", "အဝတ္အစား", "လမ္းစရိတ္", "ေဖ်ာ္ေျဖေရး", "ကားအသံုးစရိတ္", "အေထြေထြ"};
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                catID = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         spinnerCategory.setAdapter(adapter);
 
-        //getCurrentDate();
+        getCurrentDate();
 
 
         btnExpenseSave.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +102,12 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
 
                 expenseVO.setTitle(etExpenseTitle.getText().toString());
                 expenseVO.setAmount(Integer.parseInt(etExpenseAmount.getText().toString()));
-                //expenseVO.setDate(tvDate.getText());
+                expenseVO.setCategory_id(catID);
+                expenseVO.setDate(dateInNum);
                 expenseVO.setNote(etExpenseNote.getText().toString());
 
                 MoneySaverModel.getInstance().saveExpense(expenseVO);
+
             }
         });
     }
@@ -116,11 +132,8 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         Calendar now = Calendar.getInstance();
 
         try {
-            dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String dateInString = now.get(Calendar.DAY_OF_MONTH) + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR);
-            Date date = dateFormatter.parse(dateInString);
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(tvDate.getText().toString() + dateFormatter.format(date).toString());
+
+            tvDate.setText(channgeTimeToMilliTime(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -148,18 +161,29 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
             dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
             tvDate.setText(dateFormatter.format(date).toString());*/
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(year, monthOfYear, dayOfMonth);
 
-            dateInNum = (int) (calendar.getTimeInMillis() / 100);
-
-            calendar.setTimeInMillis(dateInNum * 100);
-            Date date1 = calendar.getTime();
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(dateFormatter.format(date1).toString());
+            tvDate.setText(channgeTimeToMilliTime(year, monthOfYear, dayOfMonth));
 
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private String channgeTimeToMilliTime(int year, int monthOfYear, int dayOfMonth){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, monthOfYear, dayOfMonth);
+
+        dateInNum = calendar.getTimeInMillis();
+        Log.d(MoneySaverApp.TAG, "Milli selected date" + dateInNum);
+
+        calendar.setTimeInMillis(dateInNum);
+        Log.d(MoneySaverApp.TAG, "Milli calendar date" + calendar.getTimeInMillis());
+
+
+        Date date1 = calendar.getTime();
+        Log.d(MoneySaverApp.TAG, date1.toString());
+        dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
+
+        return dateFormatter.format(date1).toString();
     }
 }
