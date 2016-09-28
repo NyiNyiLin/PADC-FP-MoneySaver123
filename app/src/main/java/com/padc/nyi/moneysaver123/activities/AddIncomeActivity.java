@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,6 +20,7 @@ import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
 import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
+import com.padc.nyi.moneysaver123.util.DateUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +60,9 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
     SimpleDateFormat dateFormatter;
     IncomeVO incomeVO;
 
+    int catID;
+    long dateInNum;
+
     /*static factory method*/
     public static Intent newIntent(){
         Intent intent = new Intent(MoneySaverApp.getContext(), AddIncomeActivity.class);
@@ -73,15 +78,16 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            actionBar.setTitle("စုစုေပါင္း ဝင္ေငြထည့္ရန္");
+            actionBar.setTitle("ဝင္ေငြထည့္ရန္");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        final String []dummyCategory={"aaa", "bbb"};
-        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
+        final String dummyIncomeCat[] = {"လစာ", "ေရာင္းရေငြ", "ေခ်းေငြ"};
+        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyIncomeCat);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerIncomeCategory.setAdapter(adapter);
 
+<<<<<<< HEAD
         getCurrentDate();
 
         btnIncomeSave.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +148,21 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
             }
         });
         alertDialog.show();
+=======
+       spinnerIncomeCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+               catID = i;
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> adapterView) {
+
+           }
+       });
+
+        getCurrentDate();
+>>>>>>> Edit income and expense segment
     }
 
     @Override
@@ -159,15 +180,29 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
     public void onClickDate(View view){
         showThirdPartyDatePicker();
     }
+
+    @OnClick(R.id.btn_income_save)
+    public void onClickSave(View view){
+        incomeVO = new IncomeVO();
+
+        incomeVO.setTitle(etIncomeTitle.getText().toString());
+        incomeVO.setAmount(Integer.parseInt(etIncomeAmount.getText().toString()));
+        incomeVO.setCategory_id(catID);
+        incomeVO.setDate(dateInNum);
+        incomeVO.setNote(etIncomeNote.getText().toString());
+
+        MoneySaverModel.getInstance().saveIncome(incomeVO);
+
+        this.finish();
+    }
+
+
     private void getCurrentDate(){
         Calendar now = Calendar.getInstance();
 
         try {
-            dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String dateInString = now.get(Calendar.DAY_OF_MONTH) + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR);
-            Date date = dateFormatter.parse(dateInString);
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(tvDate.getText().toString() + dateFormatter.format(date).toString());
+            dateInNum = DateUtil.channgeTimeToMilliTime(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            tvDate.setText(DateUtil.changeMilliTimeToText(dateInNum));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -189,11 +224,8 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         try {
-            dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-            Date date = dateFormatter.parse(dateInString);
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(dateFormatter.format(date).toString());
+            dateInNum = DateUtil.channgeTimeToMilliTime(year, monthOfYear, dayOfMonth);
+            tvDate.setText(DateUtil.changeMilliTimeToText(dateInNum));
 
         }catch (Exception e){
             e.printStackTrace();

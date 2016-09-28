@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 
 /**
  * Created by IN-3442 on 11-Sep-16.
@@ -20,8 +21,6 @@ public class ExpenseVO{
     String textDate;
     int category_id;
     String note;
-
-    String []dummyCategory={"အစားအေသာက္", "အဝတ္အစား", "လမ္းစရိတ္", "ေဖ်ာ္ေျဖေရး", "ကားအသံုးစရိတ္", "အေထြေထြ"};
 
     public ExpenseVO() {
     }
@@ -46,9 +45,6 @@ public class ExpenseVO{
         this.note = note;
     }
 
-    public void setDummyCategory(String[] dummyCategory) {
-        this.dummyCategory = dummyCategory;
-    }
 
     public ExpenseVO(String title, int amount, long date, int category_id, String note) {
         this.title = title;
@@ -130,6 +126,6 @@ public class ExpenseVO{
     //This method is only for dummy data
     //Category item may be extracted from database
     public String getCategory(){
-        return dummyCategory[category_id];
+        return MoneySaverConstant.expenseCategory[category_id];
     }
 }

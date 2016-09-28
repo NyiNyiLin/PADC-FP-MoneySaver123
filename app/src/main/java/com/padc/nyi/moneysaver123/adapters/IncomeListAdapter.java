@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
+import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
+import com.padc.nyi.moneysaver123.views.holders.ExpenseHeaderViewHolder;
+import com.padc.nyi.moneysaver123.views.holders.ExpenseViewHolder;
+import com.padc.nyi.moneysaver123.views.holders.IncomeHeaderViewHolder;
 import com.padc.nyi.moneysaver123.views.holders.IncomeViewHolder;
 
 import java.util.List;
@@ -15,7 +19,9 @@ import java.util.List;
 /**
  * Created by ZMTH on 9/10/2016.
  */
-public class IncomeListAdapter extends RecyclerView.Adapter<IncomeViewHolder>{
+public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private final int HEADER = 1;
+    private final int DATA = 2;
 
     private LayoutInflater mInflater;
     private List<IncomeVO> mIncomeVOList;
@@ -35,20 +41,41 @@ public class IncomeListAdapter extends RecyclerView.Adapter<IncomeViewHolder>{
     }
 
     @Override
-    public IncomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.view_item_income, parent, false);
-        return new IncomeViewHolder(itemView, mControllerIncomeItem);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType == DATA) {
+            View itemView = mInflater.inflate(R.layout.view_item_income, parent, false);
+            return new IncomeViewHolder(itemView, mControllerIncomeItem);
+        }else if(viewType == HEADER){
+            View itemView = mInflater.inflate(R.layout.view_item_income_header, parent, false);
+            return new IncomeHeaderViewHolder(itemView);
+        }else return null;
 
     }
 
     @Override
-    public void onBindViewHolder(IncomeViewHolder holder, int position) {
-        holder.bindData(mIncomeVOList.get(position));
-
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        IncomeVO incomeVO = mIncomeVOList.get(position);
+        if(incomeVO.getAmount() < 0){
+            IncomeHeaderViewHolder incomeHeaderViewHolder = (IncomeHeaderViewHolder) holder;
+            incomeHeaderViewHolder.bindData(incomeVO);
+        }else{
+            IncomeViewHolder incomeViewHolder = (IncomeViewHolder) holder;
+            incomeViewHolder.bindData(incomeVO);
+        }
     }
+
+
 
     @Override
     public int getItemCount() {
         return mIncomeVOList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        IncomeVO incomeVO = mIncomeVOList.get(position);
+        if(incomeVO.getAmount() < 0){
+            return HEADER;
+        } else return DATA;
     }
 }

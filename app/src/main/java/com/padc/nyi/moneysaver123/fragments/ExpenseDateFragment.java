@@ -14,7 +14,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +25,13 @@ import com.padc.nyi.moneysaver123.activities.AddExpenseActivity;
 import com.padc.nyi.moneysaver123.adapters.ExpenseListAdapter;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
+import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 import com.padc.nyi.moneysaver123.views.holders.ExpenseViewHolder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import android.net.Uri;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,18 +39,37 @@ import butterknife.ButterKnife;
 /**
  * Created by ZMTH on 9/5/2016.
  */
-public class ExpenseFragment extends Fragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem, LoaderManager.LoaderCallbacks<Cursor>{
+public class ExpenseDateFragment extends Fragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem, LoaderManager.LoaderCallbacks<Cursor>{
     @BindView(R.id.rv_expense_list)
     RecyclerView rvExpenseList;
 
     @BindView(R.id.fab_add_expense)
     FloatingActionButton fabAddExpense;
 
+    private static final String PARAM_CAT_ID = "ID";
+
     ExpenseListAdapter mExpenseListAdapter;
     List<ExpenseVO> mExpenseVOList = new ArrayList<>();
 
+<<<<<<< HEAD:app/src/main/java/com/padc/nyi/moneysaver123/fragments/ExpenseFragment.java
     public ExpenseFragment() {
 
+=======
+    private Uri uri;
+
+    public ExpenseDateFragment() {
+        /*mExpenseVOList.add(new ExpenseVO("ရံုးသြား", 300, 2));
+        mExpenseVOList.add(new ExpenseVO("ေန႕လည္စာ", 2500, 0));*/
+>>>>>>> Edit income and expense segment:app/src/main/java/com/padc/nyi/moneysaver123/fragments/ExpenseDateFragment.java
+    }
+
+    public static ExpenseDateFragment newInstance(int catId) {
+        ExpenseDateFragment fragment = new ExpenseDateFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(PARAM_CAT_ID, catId);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -60,15 +77,13 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
 
         super.onCreate(savedInstanceState);
 
-        mExpenseVOList.add(new ExpenseVO("a", 200, 1, 1, "asd"));
-        mExpenseVOList.add(new ExpenseVO("aa", 200, 1, 1, "asd"));
-        mExpenseVOList.add(new ExpenseVO("aaaa", 200, 1, 1, "asd"));
-        mExpenseVOList.add(new ExpenseVO("b", 200, 2, 2, "asd"));
-        mExpenseVOList.add(new ExpenseVO("bb", 200, 2, 2, "asd"));
-        mExpenseVOList.add(new ExpenseVO("c", 200, 3, 3, "asd"));
-        mExpenseVOList.add(new ExpenseVO("d", 200, 4, 4, "asd"));
+        Bundle bundle = getArguments();
+        int catID = bundle.getInt(PARAM_CAT_ID);
+        if(catID < 0) uri = MoneySaverContract.ExpenseEntry.CONTENT_URI;
+        else uri = MoneySaverContract.ExpenseEntry.buildExpenseUriWithCatID(catID);
 
-        getLoaderManager().initLoader(1,null,this);
+
+        getLoaderManager().initLoader(MoneySaverConstant.LoaderConstantExpense,null,this);
     }
 
     @Nullable
@@ -76,7 +91,6 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
         ButterKnife.bind(this, view);
-
 
         fabAddExpense.setOnClickListener(this);
 
@@ -124,7 +138,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
         tvTitle.setText(expenseVO.getTitle());
         tvAmount.setText(expenseVO.getAmount() + "");
         tvCat.setText(expenseVO.getCategory());
-        tvDate.setText(changeMiliTimetoDate(expenseVO.getDate()));
+        tvDate.setText(DateUtil.changeMilliTimeToText(expenseVO.getDate()));
         tvNote.setText(expenseVO.getNote());
 
         // create an alert dialog
@@ -138,7 +152,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(MoneySaverApp.getContext(),
-                MoneySaverContract.ExpenseEntry.CONTENT_URI,
+                uri,
                 null,
                 null,
                 null,
@@ -167,13 +181,13 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
 
         if(expenseVOList.size() != 0) {
             long currentDateInMilli = expenseVOList.get(0).getDate();
-            String currentDate = changeMiliTimetoDate(currentDateInMilli);
+            String currentDate = DateUtil.changeMilliTimeToText(currentDateInMilli);
             int insertedPosition = 0;
             int totalAmount = 0;
 
             for (int a = 0; a < expenseVOList.size(); a++) {
                 long anotherDateInMilli = expenseVOList.get(a).getDate();
-                String anotherDate = changeMiliTimetoDate(anotherDateInMilli);
+                String anotherDate = DateUtil.changeMilliTimeToText(anotherDateInMilli);
                 if (currentDate.compareTo(anotherDate) != 0) {
 
                     expenseVOList.add(insertedPosition, new ExpenseVO("zxy", (0 - totalAmount), currentDate, 1, ""));
@@ -190,14 +204,5 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
         return expenseVOList;
     }
 
-    private String changeMiliTimetoDate(Long miliTime){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(miliTime);
 
-        Date date1 = calendar.getTime();
-        Log.d(MoneySaverApp.TAG, date1.toString());
-        DateFormat dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-
-        return dateFormatter.format(date1).toString();
-    }
 }

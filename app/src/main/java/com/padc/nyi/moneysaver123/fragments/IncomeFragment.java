@@ -23,7 +23,10 @@ import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.activities.AddIncomeActivity;
 import com.padc.nyi.moneysaver123.adapters.IncomeListAdapter;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
+import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 import com.padc.nyi.moneysaver123.views.holders.IncomeViewHolder;
 
 import java.util.ArrayList;
@@ -54,7 +57,7 @@ public class IncomeFragment extends Fragment implements View.OnClickListener, In
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLoaderManager().initLoader(1,null,this);
+        getLoaderManager().initLoader(MoneySaverConstant.LoaderConstantIncomeGraph,null,this);
     }
 
     @Nullable
@@ -65,7 +68,7 @@ public class IncomeFragment extends Fragment implements View.OnClickListener, In
         ButterKnife.bind(this, view);
         fabAddIncome.setOnClickListener(this);
 
-        mIncomeListAdapter = new IncomeListAdapter(mIncomeVOList, this);
+        mIncomeListAdapter = new IncomeListAdapter(addHeadertoList(mIncomeVOList), this);
         rvIncomeList.setAdapter(mIncomeListAdapter);
 
         int gridColumnSpanCount = 1;
@@ -106,8 +109,8 @@ public class IncomeFragment extends Fragment implements View.OnClickListener, In
 
         tvTitle.setText(incomeVO.getTitle());
         tvAmount.setText(incomeVO.getAmount() + "");
-        //tvCat.setText(incomeVO.getCategory_id());
-        tvDate.setText("24 Sept 2016");
+        tvCat.setText(MoneySaverConstant.IncomeCat[incomeVO.getCategory_id()]);
+        tvDate.setText(DateUtil.changeMilliTimeToText(incomeVO.getDate()));
         tvNote.setText(incomeVO.getNote());
 
         // create an alert dialog
@@ -124,7 +127,7 @@ public class IncomeFragment extends Fragment implements View.OnClickListener, In
                 null,
                 null,
                 null,
-                null);
+                MoneySaverContract.IncomeEntry.COLUMN_INCOME_DATE + " DESC");
     }
 
     @Override
@@ -137,11 +140,40 @@ public class IncomeFragment extends Fragment implements View.OnClickListener, In
             }while (data.moveToNext());
         }
 
-        mIncomeListAdapter.addAllList(incomeVOList);
+        mIncomeListAdapter.addAllList(addHeadertoList(incomeVOList));
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    private List<IncomeVO> addHeadertoList(List<IncomeVO> incomeVOList){
+
+        if(incomeVOList.size() != 0) {
+            long currentDateInMilli = incomeVOList.get(0).getDate();
+            String currentDate = DateUtil.changeMilliTimeToText(currentDateInMilli);
+            currentDate = currentDate.substring(3);
+            int insertedPosition = 0;
+            int totalAmount = 0;
+
+            for (int a = 0; a < incomeVOList.size(); a++) {
+                long anotherDateInMilli = incomeVOList.get(a).getDate();
+                String anotherDate = DateUtil.changeMilliTimeToText(anotherDateInMilli);
+                anotherDate = anotherDate.substring(3);
+                if (currentDate.compareTo(anotherDate) != 0) {
+
+                    incomeVOList.add(insertedPosition, new IncomeVO("zxy", (0 - totalAmount), currentDate, 1, ""));
+                    insertedPosition = a+1;
+                    currentDate = anotherDate;
+                    totalAmount = 0;
+                }else{
+                    totalAmount = totalAmount + incomeVOList.get(a).getAmount();
+                }
+            }
+            incomeVOList.add(insertedPosition, new IncomeVO("zxy", (0 - totalAmount), currentDate, 1, ""));
+
+        }
+        return incomeVOList;
     }
 }

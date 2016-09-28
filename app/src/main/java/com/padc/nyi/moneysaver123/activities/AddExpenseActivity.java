@@ -22,6 +22,8 @@ import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
+import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -79,8 +81,8 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        final String []dummyCategory={"အစားအေသာက္", "အဝတ္အစား", "လမ္းစရိတ္", "ေဖ်ာ္ေျဖေရး", "ကားအသံုးစရိတ္", "အေထြေထြ"};
-        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
+
+        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, MoneySaverConstant.expenseCategory);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -183,19 +185,34 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         showThirdPartyDatePicker();
     }
 
+    @OnClick(R.id.btn_expense_save)
+    public void onClickSave(View view){
+        expenseVO = new ExpenseVO();
+
+        expenseVO.setTitle(etExpenseTitle.getText().toString());
+        expenseVO.setAmount(Integer.parseInt(etExpenseAmount.getText().toString()));
+        expenseVO.setCategory_id(catID);
+        expenseVO.setDate(dateInNum);
+        expenseVO.setNote(etExpenseNote.getText().toString());
+
+        MoneySaverModel.getInstance().saveExpense(expenseVO);
+
+        this.finish();
+    }
+
     private void getCurrentDate(){
         Calendar now = Calendar.getInstance();
 
         try {
-
-            tvDate.setText(channgeTimeToMilliTime(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)));
+            dateInNum = DateUtil.channgeTimeToMilliTime(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            tvDate.setText(DateUtil.changeMilliTimeToText(dateInNum));
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
-    private  void showThirdPartyDatePicker(){
+    private void showThirdPartyDatePicker(){
         Calendar now = Calendar.getInstance();
         DatePickerDialog thirdPartyDatePicker = DatePickerDialog.newInstance(
                 this,
@@ -210,35 +227,13 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         try {
-            /*dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-            Date date = dateFormatter.parse(dateInString);
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(dateFormatter.format(date).toString());*/
-
-
-            tvDate.setText(channgeTimeToMilliTime(year, monthOfYear, dayOfMonth));
+            dateInNum = DateUtil.channgeTimeToMilliTime(year, monthOfYear, dayOfMonth);
+            tvDate.setText(DateUtil.changeMilliTimeToText(dateInNum));
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private String channgeTimeToMilliTime(int year, int monthOfYear, int dayOfMonth){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, monthOfYear, dayOfMonth);
 
-        dateInNum = calendar.getTimeInMillis();
-        Log.d(MoneySaverApp.TAG, "Milli selected date" + dateInNum);
-
-        calendar.setTimeInMillis(dateInNum);
-        Log.d(MoneySaverApp.TAG, "Milli calendar date" + calendar.getTimeInMillis());
-
-
-        Date date1 = calendar.getTime();
-        Log.d(MoneySaverApp.TAG, date1.toString());
-        dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-
-        return dateFormatter.format(date1).toString();
-    }
 }

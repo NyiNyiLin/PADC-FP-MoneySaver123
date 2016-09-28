@@ -2,6 +2,7 @@ package com.padc.nyi.moneysaver123.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -13,8 +14,9 @@ import android.view.MenuItem;
 
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.fragments.BillFragment;
-import com.padc.nyi.moneysaver123.fragments.ExpenseFragment;
+import com.padc.nyi.moneysaver123.fragments.ExpenseMainFragment;
 import com.padc.nyi.moneysaver123.fragments.IncomeFragment;
+import com.padc.nyi.moneysaver123.fragments.IncomeMainFrgment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,7 +119,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(actionBar != null){
             actionBar.setTitle("အသံုးစရိတ္စာရင္း");
         }
-        ExpenseFragment expenseFragment = new ExpenseFragment();
+        Fragment expenseFragment = ExpenseMainFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fl_container, expenseFragment)
@@ -128,16 +130,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(actionBar != null){
             actionBar.setTitle("ဝင္ေငြစာရင္း ");
         }
-        IncomeFragment incomeFragment = new IncomeFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_container, incomeFragment)
+                .replace(R.id.fl_container, IncomeMainFrgment.newInstance())
                 .commit();
     }
 
     private void navigateToExpenseCategory(){
 
-        ExpenseFragment expenseFragment = new ExpenseFragment();
+        Fragment expenseFragment = ExpenseMainFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fl_container, expenseFragment)
