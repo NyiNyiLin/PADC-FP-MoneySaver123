@@ -33,8 +33,8 @@ public class MoneySaverDBHelper extends SQLiteOpenHelper{
     private static final String SQL_CREATE_BILL_TABLE = "CREATE TABLE " + MoneySaverContract.BillEntry.TABLE_NAME + " (" +
             MoneySaverContract.BillEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             MoneySaverContract.BillEntry.COLUMN_BILL_TITLE + " TEXT NOT NULL, " +
-            MoneySaverContract.BillEntry.COLUMN_BILL_DATE + " TEXT, " +
-            MoneySaverContract.BillEntry.COLUMN_BILL_AMOUNT + " TEXT " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_DATE + " INTEGER, " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_AMOUNT + " INTEGER " +
             " );";
 
     public MoneySaverDBHelper(Context context) {
@@ -45,14 +45,14 @@ public class MoneySaverDBHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_EXPENSE_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_INCOME_TABLE);
-        //sqLiteDatabase.execSQL(SQL_CREATE_BILL_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_BILL_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase,int oldVersion, int newVersion) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoneySaverContract.ExpenseEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoneySaverContract.IncomeEntry.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoneySaverContract.BillEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoneySaverContract.BillEntry.TABLE_NAME);
 
         onCreate(sqLiteDatabase);
     }
