@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.padc.nyi.moneysaver123.fragments.ExpenseMainFragment">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_expense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mdtp_white"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/primary"
+        app:tabSelectedTextColor="@color/primary_dark"
+        app:tabIndicatorColor="@color/primary"
+        app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionMode.Subtitle"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager_expense"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

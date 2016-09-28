@@ -16,17 +16,25 @@ public class IncomeVO {
 
     String title;
     int amount;
-    int date;
+    long date;
+    String  textDate;
     int category_id;
     String note;
 
     public IncomeVO() {
     }
 
-    public IncomeVO(String title, int amount, int date, int category_id, String note) {
+    public IncomeVO(String title, int amount, long date, int category_id, String note) {
         this.title = title;
         this.amount = amount;
         this.date = date;
+        this.category_id = category_id;
+        this.note = note;
+    }
+    public IncomeVO(String title, int amount, String textDate, int category_id, String note) {
+        this.title = title;
+        this.amount = amount;
+        this.textDate = textDate;
         this.category_id = category_id;
         this.note = note;
     }
@@ -53,8 +61,8 @@ public class IncomeVO {
 
         incomeVO.setTitle(data.getString(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_TITLE)));
         incomeVO.setAmount(data.getInt(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_AMOUNT)));
-        incomeVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_DATE)));
-        incomeVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_CATEGORY_ID)));
+        incomeVO.setDate(data.getLong(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_DATE)));
+        incomeVO.setCategory_id(data.getInt(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_CATEGORY_ID)));
         incomeVO.setNote(data.getString(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_NOTE)));
 
         return incomeVO;
@@ -66,6 +74,14 @@ public class IncomeVO {
         Log.d(MoneySaverApp.TAG, "Successfully inserted into income table : " + insertedUri);
     }
 
+    public String getTextDate() {
+        return textDate;
+    }
+
+    public void setTextDate(String textDate) {
+        this.textDate = textDate;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -74,7 +90,7 @@ public class IncomeVO {
         return amount;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
@@ -94,7 +110,7 @@ public class IncomeVO {
         this.amount = amount;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

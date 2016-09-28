@@ -21,6 +21,7 @@ public class MoneySaverProvider  extends ContentProvider {
     public static final int BILL = 300;
 
     private static final String sExpenseTitleSelection = MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE + " = ?";
+    private static final String sExpenseCatIDSelection = MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_CATEGORY_ID + " = ?";
     private static final String sIncomeTitleSelection = MoneySaverContract.IncomeEntry.COLUMN_INCOME_TITLE + " = ?";
 
     private MoneySaverDBHelper mMoneySaverDBHelper;
@@ -42,9 +43,18 @@ public class MoneySaverProvider  extends ContentProvider {
         switch (matchUri) {
             case EXPENSE:
                 String attractionTitle = MoneySaverContract.ExpenseEntry.getExpenseTitleFromParam(uri);
+                String catID = MoneySaverContract.ExpenseEntry.getCatIDFromParam(uri);
+                String dummy = MoneySaverContract.ExpenseEntry.getExpenseDateDifference(uri);
                 if (!TextUtils.isEmpty(attractionTitle)) {
                     selection = sExpenseTitleSelection;
                     selectionArgs = new String[]{attractionTitle};
+                }
+                if(!TextUtils.isEmpty(catID)){
+                    selection = sExpenseCatIDSelection;
+                    selectionArgs = new String[]{catID};
+                }
+                if(!TextUtils.isEmpty(dummy)){
+
                 }
                 queryCursor = mMoneySaverDBHelper.getReadableDatabase().query(MoneySaverContract.ExpenseEntry.TABLE_NAME,
                         projection,

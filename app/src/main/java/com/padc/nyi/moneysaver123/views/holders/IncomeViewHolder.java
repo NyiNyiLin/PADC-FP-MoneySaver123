@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +38,7 @@ public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.On
     public void bindData(IncomeVO incomeVO){
         mIncomeVO = incomeVO;
         tvIncomeTitle.setText(incomeVO.getTitle());
-        tvIncomeCat.setText(incomeVO.getCategory_id() + "");
+        tvIncomeCat.setText(MoneySaverConstant.IncomeCat[incomeVO.getCategory_id()]);
         tvIncomeAmount.setText(incomeVO.getAmount() + "");
     }
 
