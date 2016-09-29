@@ -1,5 +1,6 @@
 package com.padc.nyi.moneysaver123.data.models;
 
+import com.padc.nyi.moneysaver123.data.vos.BillVO;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
 
@@ -31,5 +32,9 @@ public class MoneySaverModel extends BaseModel{
 
     public void saveIncome(IncomeVO incomeVO){
         IncomeVO.saveIncome(incomeVO);
+    }
+
+    public void saveReminderForBill(BillVO billVO){
+        billVO.saveReminderForBill(billVO);
     }
 }

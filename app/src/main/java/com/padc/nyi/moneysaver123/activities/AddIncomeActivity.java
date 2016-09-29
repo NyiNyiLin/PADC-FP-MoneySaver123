@@ -1,10 +1,13 @@
 package com.padc.nyi.moneysaver123.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -84,18 +87,61 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         btnIncomeSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                incomeVO = new IncomeVO();
+               if(isEmptyUserInputData()){
 
-                incomeVO.setTitle(etIncomeTitle.getText().toString());
-                incomeVO.setAmount(Integer.parseInt(etIncomeAmount.getText().toString()));
-                //incomeVO.setDate(tvDate.getText();
-                incomeVO.setNote(etIncomeNote.getText().toString());
+                   incomeVO = new IncomeVO();
+                   incomeVO.setTitle(etIncomeTitle.getText().toString());
+                   incomeVO.setAmount(Integer.parseInt(etIncomeAmount.getText().toString()));
+                   //incomeVO.setDate(tvDate.getText();
+                   incomeVO.setNote(etIncomeNote.getText().toString());
 
-                MoneySaverModel.getInstance().saveIncome(incomeVO);
+                   MoneySaverModel.getInstance().saveIncome(incomeVO);
+                   clearIncomeUserInputData();
+                   successfullySaveDataDialogBox();
+               }
             }
         });
+    }
 
+    //clear user input data
+    private  void clearIncomeUserInputData(){
+        incomeVO = new IncomeVO();
+        etIncomeTitle.getText().clear();
+        etIncomeAmount.getText().clear();
+        etIncomeNote.getText().clear();
+    }
 
+    //check validation
+    private boolean isEmptyUserInputData(){
+        if(TextUtils.isEmpty(etIncomeTitle.getText().toString())||
+                TextUtils.isEmpty(etIncomeAmount.getText().toString())||
+                TextUtils.isEmpty(etIncomeNote.getText().toString())){
+            unsuccessfullySaveDataDialogBox();
+            return false;
+        }
+        return true;
+    }
+
+    public void successfullySaveDataDialogBox(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddIncomeActivity.this);
+        alertDialog.setMessage("Successfully save data.");
+        alertDialog.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+
+            }
+        });
+        alertDialog.show();
+    }
+
+    public void unsuccessfullySaveDataDialogBox(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddIncomeActivity.this);
+        alertDialog.setMessage("Please fill require fields.");
+        alertDialog.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+
+            }
+        });
+        alertDialog.show();
     }
 
     @Override
@@ -126,8 +172,8 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
+
     private  void showThirdPartyDatePicker(){
         Calendar now = Calendar.getInstance();
         DatePickerDialog thirdPartyDatePicker = DatePickerDialog.newInstance(

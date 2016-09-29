@@ -17,6 +17,7 @@ public class MoneySaverContract {
 
     public static final String PATH_EXPENSE = "expense";
     public static final String PATH_INCOME = "income";
+    public static final String PATH_BILL = "bill";
 
     public static final class ExpenseEntry implements BaseColumns{
 
@@ -92,10 +93,34 @@ public class MoneySaverContract {
 
     public static final class BillEntry implements BaseColumns{
 
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_BILL).build();
+
+        public static final String DIR_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BILL;
+
+        public static final String ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BILL;
+
         public static final String TABLE_NAME = "bill";
 
         public static final String COLUMN_BILL_TITLE = "title";
         public static final String COLUMN_BILL_DATE = "date";
         public static final String COLUMN_BILL_AMOUNT = "amount";
+
+        public static Uri buildBillUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildBillUriWithTitle(String moneySaverTitle) {
+
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_BILL_TITLE, moneySaverTitle)
+                    .build();
+        }
+
+        public static String getBillTitleFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_BILL_TITLE);
+        }
     }
 }
