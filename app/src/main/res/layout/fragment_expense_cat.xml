@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.padc.nyi.moneysaver123.fragments.ExpenseCatFragment">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_expense_cat_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/padding_bottom_for_fab"
+        android:paddingLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/margin_medium"
+        android:scrollbarStyle="outsideOverlay"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_expense_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_black_24dp"
+        />
+
+</RelativeLayout>

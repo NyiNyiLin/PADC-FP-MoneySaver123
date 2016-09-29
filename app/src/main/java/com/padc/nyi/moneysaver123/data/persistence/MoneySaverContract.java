@@ -54,6 +54,24 @@ public class MoneySaverContract {
         public static String getExpenseTitleFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_EXPENSE_TITLE);
         }
+
+        public static Uri buildExpenseUriWithCatID(int catID) {
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_EXPENSE_CATEGORY_ID, catID + "")
+                    .build();
+        }
+        public static String getCatIDFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_EXPENSE_CATEGORY_ID);
+        }
+
+        public static Uri buildExpenseUriWithDateDifference(int dummy) {
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_EXPENSE_DATE, dummy + "")
+                    .build();
+        }
+        public static String getExpenseDateDifference(Uri uri) {
+            return uri.getQueryParameter(COLUMN_EXPENSE_DATE);
+        }
     }
 
     public static final class IncomeEntry implements BaseColumns{

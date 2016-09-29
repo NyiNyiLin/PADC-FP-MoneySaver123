@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary"
+    android:padding="@dimen/margin_medium">
+
+    <TextView
+        android:id="@+id/tv_item_income_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/mdtp_white"
+        android:layout_weight="1"
+        android:text="date"/>
+
+    <TextView
+        android:id="@+id/tv_item_income_header_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/mdtp_white"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:paddingRight="@dimen/margin_medium"
+        android:text="120"/>
+
+</LinearLayout>

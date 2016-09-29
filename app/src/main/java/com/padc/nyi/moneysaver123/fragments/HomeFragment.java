@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.padc.nyi.moneysaver123.R;
 
+import butterknife.ButterKnife;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -16,9 +18,20 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
     }
 
+    public static HomeFragment newInstance(){
+        HomeFragment homeFragment = new HomeFragment();
+
+        return homeFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_expense, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, view);
+
+
+
+        return view;
     }
 }

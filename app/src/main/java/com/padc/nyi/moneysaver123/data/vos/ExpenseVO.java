@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 
 /**
  * Created by IN-3442 on 11-Sep-16.
@@ -16,11 +17,10 @@ public class ExpenseVO{
 
     String title;
     int amount;
-    int date;
+    long date;
+    String textDate;
     int category_id;
     String note;
-
-    String []dummyCategory={"အစားအေသာက္", "အဝတ္အစား", "လမ္းစရိတ္", "ေဖ်ာ္ေျဖေရး", "ကားအသံုးစရိတ္", "အေထြေထြ"};
 
     public ExpenseVO() {
     }
@@ -33,7 +33,7 @@ public class ExpenseVO{
         this.amount = amount;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
@@ -45,14 +45,18 @@ public class ExpenseVO{
         this.note = note;
     }
 
-    public void setDummyCategory(String[] dummyCategory) {
-        this.dummyCategory = dummyCategory;
-    }
 
-    public ExpenseVO(String title, int amount, int date, int category_id, String note) {
+    public ExpenseVO(String title, int amount, long date, int category_id, String note) {
         this.title = title;
         this.amount = amount;
         this.date = date;
+        this.category_id = category_id;
+        this.note = note;
+    }
+    public ExpenseVO(String title, int amount, String textDate, int category_id, String note) {
+        this.title = title;
+        this.amount = amount;
+        this.textDate = textDate;
         this.category_id = category_id;
         this.note = note;
     }
@@ -78,8 +82,8 @@ public class ExpenseVO{
 
         expenseVO.setTitle(data.getString(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE)));
         expenseVO.setAmount(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_AMOUNT)));
-        expenseVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE)));
-        expenseVO.setDate(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_CATEGORY_ID)));
+        expenseVO.setDate(data.getLong(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE)));
+        expenseVO.setCategory_id(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_CATEGORY_ID)));
         expenseVO.setNote(data.getString(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_NOTE)));
 
         return expenseVO;
@@ -91,6 +95,13 @@ public class ExpenseVO{
         Log.d(MoneySaverApp.TAG, "Successfully inserted into expense table : " + insertedUri);
     }
 
+    public String getTextDate() {
+        return textDate;
+    }
+
+    public void setTextDate(String textDate) {
+        this.textDate = textDate;
+    }
 
     public String getTitle() {
         return title;
@@ -100,7 +111,7 @@ public class ExpenseVO{
         return amount;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
@@ -115,6 +126,6 @@ public class ExpenseVO{
     //This method is only for dummy data
     //Category item may be extracted from database
     public String getCategory(){
-        return dummyCategory[category_id];
+        return MoneySaverConstant.expenseCategory[category_id];
     }
 }

@@ -1,15 +1,14 @@
 package com.padc.nyi.moneysaver123.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +19,8 @@ import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
+import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -56,7 +57,8 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
 
     ExpenseVO expenseVO;
 
-    int dateInNum;
+    long dateInNum;
+    int catID;
 
     public static Intent newIntent(){
         Intent intent = new Intent(MoneySaverApp.getContext(), AddExpenseActivity.class);
@@ -76,73 +78,25 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        final String []dummyCategory={"အစားအေသာက္", "အဝတ္အစား", "လမ္းစရိတ္", "ေဖ်ာ္ေျဖေရး", "ကားအသံုးစရိတ္", "အေထြေထြ"};
-        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyCategory);
+
+        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, MoneySaverConstant.expenseCategory);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                catID = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         spinnerCategory.setAdapter(adapter);
 
         getCurrentDate();
 
-        btnExpenseSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if(isEmptyUserInputData()){
-                    expenseVO = new ExpenseVO();
-
-                    expenseVO.setTitle(etExpenseTitle.getText().toString());
-                    expenseVO.setAmount(Integer.parseInt(etExpenseAmount.getText().toString()));
-                    //expenseVO.setDate(tvDate.getText());
-                    expenseVO.setNote(etExpenseNote.getText().toString());
-
-                    MoneySaverModel.getInstance().saveExpense(expenseVO);
-
-                    clearExpenseUserInputData();
-                    successfullySaveDataDialogBox();
-                  }
-            }
-        });
-    }
-
-    public void successfullySaveDataDialogBox(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddExpenseActivity.this);
-        alertDialog.setMessage("Successfully save data.");
-        alertDialog.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-
-            }
-        });
-        alertDialog.show();
-    }
-
-    public void unsuccessfullySaveDataDialogBox(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddExpenseActivity.this);
-        alertDialog.setMessage("Please fill require fields.");
-        alertDialog.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-
-            }
-        });
-        alertDialog.show();
-    }
-
-    //clear user input data
-    private  void clearExpenseUserInputData(){
-        expenseVO = new ExpenseVO();
-        etExpenseTitle.getText().clear();
-        etExpenseAmount.getText().clear();
-        etExpenseNote.getText().clear();
-    }
-
-    //check validation
-    private boolean isEmptyUserInputData(){
-        if(TextUtils.isEmpty(etExpenseTitle.getText().toString())||
-        TextUtils.isEmpty(etExpenseAmount.getText().toString())||
-        TextUtils.isEmpty(etExpenseNote.getText().toString())){
-            unsuccessfullySaveDataDialogBox();
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -161,22 +115,34 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         showThirdPartyDatePicker();
     }
 
+    @OnClick(R.id.btn_expense_save)
+    public void onClickSave(View view){
+        expenseVO = new ExpenseVO();
+
+        expenseVO.setTitle(etExpenseTitle.getText().toString());
+        expenseVO.setAmount(Integer.parseInt(etExpenseAmount.getText().toString()));
+        expenseVO.setCategory_id(catID);
+        expenseVO.setDate(dateInNum);
+        expenseVO.setNote(etExpenseNote.getText().toString());
+
+        MoneySaverModel.getInstance().saveExpense(expenseVO);
+
+        this.finish();
+    }
+
     private void getCurrentDate(){
         Calendar now = Calendar.getInstance();
 
         try {
-            dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String dateInString = now.get(Calendar.DAY_OF_MONTH) + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR);
-            Date date = dateFormatter.parse(dateInString);
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(tvDate.getText().toString() + dateFormatter.format(date).toString());
+            dateInNum = DateUtil.channgeTimeToMilliTime(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            tvDate.setText(DateUtil.changeMilliTimeToText(dateInNum));
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
-    private  void showThirdPartyDatePicker(){
+    private void showThirdPartyDatePicker(){
         Calendar now = Calendar.getInstance();
         DatePickerDialog thirdPartyDatePicker = DatePickerDialog.newInstance(
                 this,
@@ -191,24 +157,13 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         try {
-            /*dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String dateInString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-            Date date = dateFormatter.parse(dateInString);
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(dateFormatter.format(date).toString());*/
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(year, monthOfYear, dayOfMonth);
-
-            dateInNum = (int) (calendar.getTimeInMillis() / 100);
-
-            calendar.setTimeInMillis(dateInNum * 100);
-            Date date1 = calendar.getTime();
-            dateFormatter = new SimpleDateFormat("dd/MMM/yyyy");
-            tvDate.setText(dateFormatter.format(date1).toString());
+            dateInNum = DateUtil.channgeTimeToMilliTime(year, monthOfYear, dayOfMonth);
+            tvDate.setText(DateUtil.changeMilliTimeToText(dateInNum));
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
+
 }

@@ -25,10 +25,13 @@ import com.padc.nyi.moneysaver123.activities.AddExpenseActivity;
 import com.padc.nyi.moneysaver123.adapters.ExpenseListAdapter;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
+import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 import com.padc.nyi.moneysaver123.views.holders.ExpenseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.net.Uri;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,18 +39,32 @@ import butterknife.ButterKnife;
 /**
  * Created by ZMTH on 9/5/2016.
  */
-public class ExpenseFragment extends Fragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem, LoaderManager.LoaderCallbacks<Cursor>{
+public class ExpenseDateFragment extends Fragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem, LoaderManager.LoaderCallbacks<Cursor>{
     @BindView(R.id.rv_expense_list)
     RecyclerView rvExpenseList;
 
     @BindView(R.id.fab_add_expense)
     FloatingActionButton fabAddExpense;
 
+    private static final String PARAM_CAT_ID = "ID";
+
     ExpenseListAdapter mExpenseListAdapter;
     List<ExpenseVO> mExpenseVOList = new ArrayList<>();
 
-    public ExpenseFragment() {
+    private Uri uri;
 
+    public ExpenseDateFragment() {
+        /*mExpenseVOList.add(new ExpenseVO("ရံုးသြား", 300, 2));
+        mExpenseVOList.add(new ExpenseVO("ေန႕လည္စာ", 2500, 0));*/
+    }
+
+    public static ExpenseDateFragment newInstance(int catId) {
+        ExpenseDateFragment fragment = new ExpenseDateFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(PARAM_CAT_ID, catId);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -55,7 +72,13 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
 
         super.onCreate(savedInstanceState);
 
-        getLoaderManager().initLoader(1,null,this);
+        Bundle bundle = getArguments();
+        int catID = bundle.getInt(PARAM_CAT_ID);
+        if(catID < 0) uri = MoneySaverContract.ExpenseEntry.CONTENT_URI;
+        else uri = MoneySaverContract.ExpenseEntry.buildExpenseUriWithCatID(catID);
+
+
+        getLoaderManager().initLoader(MoneySaverConstant.LoaderConstantExpense,null,this);
     }
 
     @Nullable
@@ -64,14 +87,15 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
         ButterKnife.bind(this, view);
 
-
         fabAddExpense.setOnClickListener(this);
 
-        mExpenseListAdapter = new ExpenseListAdapter(mExpenseVOList, this);
+        mExpenseListAdapter = new ExpenseListAdapter(addHeadertoList(mExpenseVOList), this);
         rvExpenseList.setAdapter(mExpenseListAdapter);
 
         int gridColumnSpanCount = 1;
         rvExpenseList.setLayoutManager(new GridLayoutManager(getContext(), gridColumnSpanCount));
+
+
         return view;
     }
 
@@ -109,7 +133,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
         tvTitle.setText(expenseVO.getTitle());
         tvAmount.setText(expenseVO.getAmount() + "");
         tvCat.setText(expenseVO.getCategory());
-        tvDate.setText("24 Sept 2016");
+        tvDate.setText(DateUtil.changeMilliTimeToText(expenseVO.getDate()));
         tvNote.setText(expenseVO.getNote());
 
         // create an alert dialog
@@ -123,11 +147,11 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(MoneySaverApp.getContext(),
-                MoneySaverContract.ExpenseEntry.CONTENT_URI,
+                uri,
                 null,
                 null,
                 null,
-                null);
+                MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE + " DESC");
     }
 
     @Override
@@ -140,11 +164,40 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener, E
             }while (data.moveToNext());
         }
 
-        mExpenseListAdapter.addAllList(expenseVOList);
+        mExpenseListAdapter.addAllList(addHeadertoList(expenseVOList));
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+
+    private List<ExpenseVO> addHeadertoList(List<ExpenseVO> expenseVOList){
+
+        if(expenseVOList.size() != 0) {
+            long currentDateInMilli = expenseVOList.get(0).getDate();
+            String currentDate = DateUtil.changeMilliTimeToText(currentDateInMilli);
+            int insertedPosition = 0;
+            int totalAmount = 0;
+
+            for (int a = 0; a < expenseVOList.size(); a++) {
+                long anotherDateInMilli = expenseVOList.get(a).getDate();
+                String anotherDate = DateUtil.changeMilliTimeToText(anotherDateInMilli);
+                if (currentDate.compareTo(anotherDate) != 0) {
+
+                    expenseVOList.add(insertedPosition, new ExpenseVO("zxy", (0 - totalAmount), currentDate, 1, ""));
+                    insertedPosition = a+1;
+                    currentDate = anotherDate;
+                    totalAmount = 0;
+                }else{
+                    totalAmount = totalAmount + expenseVOList.get(a).getAmount();
+                }
+            }
+            expenseVOList.add(insertedPosition, new ExpenseVO("zxy", (0 - totalAmount), currentDate, 1, ""));
+
+        }
+        return expenseVOList;
+    }
+
+
 }
