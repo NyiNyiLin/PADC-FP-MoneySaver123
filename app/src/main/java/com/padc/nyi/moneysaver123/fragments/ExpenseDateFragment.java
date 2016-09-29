@@ -51,16 +51,11 @@ public class ExpenseDateFragment extends Fragment implements View.OnClickListene
     ExpenseListAdapter mExpenseListAdapter;
     List<ExpenseVO> mExpenseVOList = new ArrayList<>();
 
-<<<<<<< HEAD:app/src/main/java/com/padc/nyi/moneysaver123/fragments/ExpenseFragment.java
-    public ExpenseFragment() {
-
-=======
     private Uri uri;
 
     public ExpenseDateFragment() {
         /*mExpenseVOList.add(new ExpenseVO("ရံုးသြား", 300, 2));
         mExpenseVOList.add(new ExpenseVO("ေန႕လည္စာ", 2500, 0));*/
->>>>>>> Edit income and expense segment:app/src/main/java/com/padc/nyi/moneysaver123/fragments/ExpenseDateFragment.java
     }
 
     public static ExpenseDateFragment newInstance(int catId) {

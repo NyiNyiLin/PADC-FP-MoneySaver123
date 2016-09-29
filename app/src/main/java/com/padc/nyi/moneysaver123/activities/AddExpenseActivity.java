@@ -1,13 +1,10 @@
 package com.padc.nyi.moneysaver123.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,74 +96,7 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
 
         getCurrentDate();
 
-        btnExpenseSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if(isEmptyUserInputData()){
-                    expenseVO = new ExpenseVO();
-
-                    expenseVO.setTitle(etExpenseTitle.getText().toString());
-                    expenseVO.setAmount(Integer.parseInt(etExpenseAmount.getText().toString()));
-                    //expenseVO.setDate(tvDate.getText());
-                    expenseVO.setNote(etExpenseNote.getText().toString());
-
-                    MoneySaverModel.getInstance().saveExpense(expenseVO);
-
-                    clearExpenseUserInputData();
-                    successfullySaveDataDialogBox();
-                  }
-            }
-        });
-    }
-
-    public void successfullySaveDataDialogBox(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddExpenseActivity.this);
-        alertDialog.setMessage("Successfully save data.");
-        alertDialog.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-
-                expenseVO.setTitle(etExpenseTitle.getText().toString());
-                expenseVO.setAmount(Integer.parseInt(etExpenseAmount.getText().toString()));
-                expenseVO.setCategory_id(catID);
-                expenseVO.setDate(dateInNum);
-                expenseVO.setNote(etExpenseNote.getText().toString());
-
-                MoneySaverModel.getInstance().saveExpense(expenseVO);
-
-            }
-        });
-        alertDialog.show();
-    }
-
-    public void unsuccessfullySaveDataDialogBox(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddExpenseActivity.this);
-        alertDialog.setMessage("Please fill require fields.");
-        alertDialog.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-
-            }
-        });
-        alertDialog.show();
-    }
-
-    //clear user input data
-    private  void clearExpenseUserInputData(){
-        expenseVO = new ExpenseVO();
-        etExpenseTitle.getText().clear();
-        etExpenseAmount.getText().clear();
-        etExpenseNote.getText().clear();
-    }
-
-    //check validation
-    private boolean isEmptyUserInputData(){
-        if(TextUtils.isEmpty(etExpenseTitle.getText().toString())||
-        TextUtils.isEmpty(etExpenseAmount.getText().toString())||
-        TextUtils.isEmpty(etExpenseNote.getText().toString())){
-            unsuccessfullySaveDataDialogBox();
-            return false;
-        }
-        return true;
     }
 
     @Override
