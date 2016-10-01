@@ -24,7 +24,7 @@
             android:src="@drawable/cat_bill"
             android:layout_margin="@dimen/margin_medium"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_item_bill_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:textColor="@color/mdtp_white"
             android:layout_margin="@dimen/margin_small"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_item_bill_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:textColor="@color/mdtp_white"
             android:layout_margin="@dimen/margin_small"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_item_bill_last_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

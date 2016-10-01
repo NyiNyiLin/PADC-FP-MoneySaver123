@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:textSize="@dimen/text_regular"
             android:layout_marginBottom="@dimen/margin_medium_2"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/txt_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:inputType="number"
             android:layout_marginBottom="@dimen/margin_medium_2"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_bill_final_date"
@@ -67,7 +67,7 @@
             android:padding="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_medium_2"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_bill_remind_date"
@@ -82,7 +82,7 @@
             android:padding="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_medium_2"/>
 
-        <Button
+        <com.padc.nyi.moneysaver123.components.MMButton
             android:id="@+id/btn_bill_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -24,6 +24,7 @@ import com.padc.nyi.moneysaver123.receiver.BillAlarm;
 import com.padc.nyi.moneysaver123.receiver.DailylAlarm;
 import com.padc.nyi.moneysaver123.util.AlarmiUtil;
 import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MMFontUtils;
 import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 
 import butterknife.BindView;
@@ -56,6 +57,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(savedInstanceState == null){
             navigateToExpense();
         }
+
+        Menu leftMenu = navigationView.getMenu();
+        MMFontUtils.applyMMFontToMenu(leftMenu);
 
         //Drawer Layout
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_medium"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_expense_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textColor="@color/mdtp_transparent_black"
             android:text="Category Title"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_expense_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:progressTint="@color/primary"
             style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_expense_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
