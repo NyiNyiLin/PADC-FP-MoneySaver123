@@ -27,7 +27,7 @@ public class AlarmiUtil {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Calendar now = Calendar.getInstance();
-        now.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH), 8, 0);
+        now.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH), 20, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), (86400 * 1000), pendingIntent);
     }
 }
