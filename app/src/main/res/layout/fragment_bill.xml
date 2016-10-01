@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/iv_bill_empty_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/back96"
+        android:scaleType="fitXY"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_bil_list"

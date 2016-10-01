@@ -1,7 +1,12 @@
 package com.padc.nyi.moneysaver123.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +23,8 @@ import android.widget.TextView;
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
+import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+import com.padc.nyi.moneysaver123.data.persistence.MoneySaverProvider;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.padc.nyi.moneysaver123.util.DateUtil;
 import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
@@ -31,7 +38,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddExpenseActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener{
+public class AddExpenseActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor>{
+    private static String PARAM_ID = "id";
+
+    public static final int NEWTYPE = -1;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -53,15 +64,16 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
     @BindView(R.id.btn_expense_save)
     Button btnExpenseSave;
 
-    SimpleDateFormat dateFormatter;
 
     ExpenseVO expenseVO;
 
     long dateInNum;
     int catID;
+    int _id = NEWTYPE;
 
-    public static Intent newIntent(){
+    public static Intent newIntent(int id){
         Intent intent = new Intent(MoneySaverApp.getContext(), AddExpenseActivity.class);
+        if(id >= 0)intent.putExtra(PARAM_ID, id);
         return intent;
     }
 
@@ -70,6 +82,13 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
         ButterKnife.bind(this, this);
+
+        Intent intent = getIntent();
+        _id = intent.getIntExtra(PARAM_ID, NEWTYPE);
+
+        if (_id != NEWTYPE) {
+            getSupportLoaderManager().initLoader(MoneySaverConstant.LoaderConstantexpenseEdit,null, this);
+        }
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -95,7 +114,6 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         spinnerCategory.setAdapter(adapter);
 
         getCurrentDate();
-
 
     }
 
@@ -125,7 +143,12 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         expenseVO.setDate(dateInNum);
         expenseVO.setNote(etExpenseNote.getText().toString());
 
-        MoneySaverModel.getInstance().saveExpense(expenseVO);
+        if(_id == NEWTYPE) MoneySaverModel.getInstance().saveExpense(expenseVO);
+        else {
+            expenseVO.setExpenseID(_id);
+            Log.d("a", "as");
+            MoneySaverModel.getInstance().updateExpense(expenseVO);
+        }
 
         this.finish();
     }
@@ -165,5 +188,44 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         }
     }
 
+    private void setDataToEdit(ExpenseVO expenseVO){
 
+        etExpenseTitle.setText(expenseVO.getTitle());
+        etExpenseAmount.setText(expenseVO.getAmount() + "");
+        spinnerCategory.setSelection(expenseVO.getCategory_id());
+        etExpenseNote.setText(expenseVO.getNote());
+        tvDate.setText(DateUtil.changeMilliTimeToText(expenseVO.getDate()));
+
+        catID = expenseVO.getCategory_id();
+        dateInNum = expenseVO.getDate();
+
+        btnExpenseSave.setText("Update");
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(MoneySaverApp.getContext(),
+                MoneySaverContract.ExpenseEntry.buildExpenseUriWithID(_id),
+                null,
+                null,
+                null,
+                MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE + " DESC");
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        ExpenseVO expenseVO;
+        if(data != null && data.moveToFirst()) {
+            do {
+                expenseVO = ExpenseVO.parseToExpenseVO(data);
+                setDataToEdit(expenseVO);
+
+            }while (data.moveToNext());
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
 }

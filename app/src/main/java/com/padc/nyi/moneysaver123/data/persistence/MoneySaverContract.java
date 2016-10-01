@@ -32,7 +32,7 @@ public class MoneySaverContract {
 
 
         public static final String TABLE_NAME = "expense";
-
+        public static final String COLUMN_EXPENSE_ID = "id";
         public static final String COLUMN_EXPENSE_TITLE = "title";
         public static final String COLUMN_EXPENSE_AMOUNT = "amount";
         public static final String COLUMN_EXPENSE_DATE = "date";
@@ -44,8 +44,17 @@ public class MoneySaverContract {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        public static Uri buildExpenseUriWithTitle(String moneySaverTitle) {
+        public static Uri buildExpenseUriWithID(int id) {
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(COLUMN_EXPENSE_ID, id + "")
+                    .build();
+        }
 
+        public static String getExpenseIDFromParam(Uri uri) {
+            return uri.getQueryParameter(COLUMN_EXPENSE_ID);
+        }
+
+        public static Uri buildExpenseUriWithTitle(String moneySaverTitle) {
             return CONTENT_URI.buildUpon()
                     .appendQueryParameter(COLUMN_EXPENSE_TITLE, moneySaverTitle)
                     .build();
@@ -107,6 +116,17 @@ public class MoneySaverContract {
         public static String getIncomeTitleFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_INCOME_TITLE);
         }
+
+
+        public static Uri buildIncomeUriWithID(int id) {
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(_ID, id + "")
+                    .build();
+        }
+
+        public static String getIncomeIDFromParam(Uri uri) {
+            return uri.getQueryParameter(_ID);
+        }
     }
 
     public static final class BillEntry implements BaseColumns{
@@ -123,8 +143,13 @@ public class MoneySaverContract {
         public static final String TABLE_NAME = "bill";
 
         public static final String COLUMN_BILL_TITLE = "title";
-        public static final String COLUMN_BILL_DATE = "date";
+        public static final String COLUMN_BILL_REMIND_DATE = "reminddate";
+        public static final String COLUMN_BILL_FINAL_DATE = "finaldate";
         public static final String COLUMN_BILL_AMOUNT = "amount";
+        public static final String COLUMN_BILL_IMAGE_ID = "imageid";
+        public static final String COLUMN_BILL_CAT_ID = "catid";
+        public static final String COLUMN_BILL_IS_FINISH = "isfinish";
+
 
         public static Uri buildBillUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -140,5 +165,15 @@ public class MoneySaverContract {
         public static String getBillTitleFromParam(Uri uri) {
             return uri.getQueryParameter(COLUMN_BILL_TITLE);
         }
+        public static Uri buildBillUriWithID(int id) {
+            return CONTENT_URI.buildUpon()
+                    .appendQueryParameter(_ID, id + "")
+                    .build();
+        }
+
+        public static String getBillIDFromParam(Uri uri) {
+            return uri.getQueryParameter(_ID);
+        }
+
     }
 }

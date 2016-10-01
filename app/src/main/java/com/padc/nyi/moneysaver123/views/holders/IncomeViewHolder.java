@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ZMTH on 9/26/2016.
  */
-public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     @BindView(R.id.tv_income_title)
     TextView tvIncomeTitle;
@@ -27,11 +27,14 @@ public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.On
 
     private ControllerIncomeItem mControllerIncomeItem;
     private IncomeVO mIncomeVO;
+    private View view;
 
     public IncomeViewHolder(View itemView, ControllerIncomeItem mControllerIncomeItem) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        view = itemView;
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
         this.mControllerIncomeItem = mControllerIncomeItem;
     }
 
@@ -47,7 +50,14 @@ public class IncomeViewHolder extends RecyclerView.ViewHolder implements View.On
         mControllerIncomeItem.onTapIncome(mIncomeVO);
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+        mControllerIncomeItem.onLongPressIncome(mIncomeVO, view);
+        return true;
+    }
+
     public interface ControllerIncomeItem{
         void onTapIncome(IncomeVO incomeVO);
+        void onLongPressIncome(IncomeVO incomeVO, View view);
     }
 }

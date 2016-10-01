@@ -3,11 +3,14 @@
     <color name="primary">#2196f3</color>
     <color name="primary_dark">#1976d2</color>
     <color name="primary_light">#90caf9</color>
-    <color name="accent">#4CAF50</color>
+    <color name="accent">#00e5ff</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#212121</color>
     <color name="divider">#BDBDBD</color>
+
+    <color name="bill_red">#ff8a80</color>
+    <color name="bill_blue">#9fa8da</color>
 </resources>
 
 <!--<color name="primary">#8BC34A</color>

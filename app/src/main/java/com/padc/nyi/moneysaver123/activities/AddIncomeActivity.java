@@ -1,10 +1,15 @@
 package com.padc.nyi.moneysaver123.activities;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,8 +21,11 @@ import android.widget.TextView;
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
+import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
 import com.padc.nyi.moneysaver123.data.vos.IncomeVO;
 import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +39,11 @@ import butterknife.OnClick;
 /**
  * Created by ZMTH on 9/10/2016.
  */
-public class AddIncomeActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class AddIncomeActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor>{
+
+    private static String PARAM_ID = "id";
+
+    public static final int NEWTYPE = -1;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -59,10 +71,12 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
 
     int catID;
     long dateInNum;
+    int _id = NEWTYPE;
 
     /*static factory method*/
-    public static Intent newIntent(){
+    public static Intent newIntent(int id){
         Intent intent = new Intent(MoneySaverApp.getContext(), AddIncomeActivity.class);
+        if(id >= 0)intent.putExtra(PARAM_ID, id);
         return intent;
     }
 
@@ -71,6 +85,13 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_income);
         ButterKnife.bind(this, this);
+
+        Intent intent = getIntent();
+        _id = intent.getIntExtra(PARAM_ID, NEWTYPE);
+
+        if (_id != NEWTYPE) {
+            getSupportLoaderManager().initLoader(MoneySaverConstant.LoaderConstantIncomeEdit,null, this);
+        }
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -125,8 +146,11 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         incomeVO.setDate(dateInNum);
         incomeVO.setNote(etIncomeNote.getText().toString());
 
-        MoneySaverModel.getInstance().saveIncome(incomeVO);
-
+        if(_id == NEWTYPE) MoneySaverModel.getInstance().saveIncome(incomeVO);
+        else {
+            incomeVO.setId(_id);
+            IncomeVO.updateIncome(incomeVO);
+        }
         this.finish();
     }
 
@@ -164,5 +188,47 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void setDataToEdit(IncomeVO incomeVO){
+
+        etIncomeTitle.setText(incomeVO.getTitle());
+        etIncomeAmount.setText(incomeVO.getAmount() + "");
+        spinnerIncomeCategory.setSelection(incomeVO.getCategory_id());
+        etIncomeNote.setText(incomeVO.getNote());
+        tvDate.setText(DateUtil.changeMilliTimeToText(incomeVO.getDate()));
+
+        catID = incomeVO.getCategory_id();
+        dateInNum = incomeVO.getDate();
+
+        btnIncomeSave.setText("Update");
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(MoneySaverApp.getContext(),
+                MoneySaverContract.IncomeEntry.buildIncomeUriWithID(_id),
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        IncomeVO incomeVO;
+        if(data != null && data.moveToFirst()) {
+            do {
+                incomeVO = IncomeVO.parseToIncomeVO(data);
+                setDataToEdit(incomeVO);
+
+            }while (data.moveToNext());
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

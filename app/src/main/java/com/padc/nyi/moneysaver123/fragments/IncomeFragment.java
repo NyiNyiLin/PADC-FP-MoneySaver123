@@ -16,10 +16,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
+import com.padc.nyi.moneysaver123.activities.AddExpenseActivity;
 import com.padc.nyi.moneysaver123.activities.AddIncomeActivity;
 import com.padc.nyi.moneysaver123.adapters.IncomeListAdapter;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
@@ -38,13 +40,16 @@ import butterknife.ButterKnife;
 /**
  * Created by ZMTH on 9/5/2016.
  */
-public class IncomeFragment extends Fragment implements View.OnClickListener, IncomeViewHolder.ControllerIncomeItem, LoaderManager.LoaderCallbacks<Cursor>{
+public class IncomeFragment extends BaseFragment implements View.OnClickListener, IncomeViewHolder.ControllerIncomeItem, LoaderManager.LoaderCallbacks<Cursor>{
 
     @BindView(R.id.rv_income_list)
     RecyclerView rvIncomeList;
 
     @BindView(R.id.fab_add_income)
     FloatingActionButton fabAddIncome;
+
+    @BindView(R.id.iv_income_empty_image)
+    ImageView ivIncomeEmptyImage;
 
     IncomeListAdapter mIncomeListAdapter;
     List<IncomeVO> mIncomeVOList = new ArrayList<>();
@@ -79,8 +84,26 @@ public class IncomeFragment extends Fragment implements View.OnClickListener, In
 
     @Override
     public void onClick(View view) {
-        Intent intent = AddIncomeActivity.newIntent();
+        Intent intent = AddIncomeActivity.newIntent(AddIncomeActivity.NEWTYPE);
         startActivity(intent);
+    }
+
+    @Override
+    public void onLongPressIncome(IncomeVO incomeVO, View itemView) {
+        showMenu(itemView, incomeVO.getId());
+    }
+
+    @Override
+    protected void onTapItemEdit(int id) {
+        super.onTapItemEdit(id);
+        Intent intent = AddIncomeActivity.newIntent(id);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onTapItemDelete(int id) {
+        super.onTapItemDelete(id);
+        IncomeVO.deleteIncome(id);
     }
 
     @Override
@@ -139,7 +162,7 @@ public class IncomeFragment extends Fragment implements View.OnClickListener, In
                 incomeVOList.add(incomeVO);
             }while (data.moveToNext());
         }
-
+        if(incomeVOList.size() > 0) ivIncomeEmptyImage.setVisibility(View.INVISIBLE);
         mIncomeListAdapter.addAllList(addHeadertoList(incomeVOList));
     }
 

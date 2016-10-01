@@ -51,10 +51,6 @@ public class ExpenseCatFragment extends Fragment implements ExpenseCatViewHolder
     @BindView(R.id.rv_expense_cat_list)
     RecyclerView rvExpenseCatList;
 
-    @BindView(R.id.fab_add_expense_cat)
-    FloatingActionButton fabAddExpCat;
-
-
     ExpenseCatListAdapter adapter;
 
     List<ExpenseCatVO> mExpenseCatList = new ArrayList<>();
@@ -140,6 +136,7 @@ public class ExpenseCatFragment extends Fragment implements ExpenseCatViewHolder
         List<ExpenseVO> expenseVOList6 = new ArrayList<>();
         List<ExpenseVO> expenseVOList7 = new ArrayList<>();
         List<ExpenseVO> expenseVOList8 = new ArrayList<>();
+        List<ExpenseVO> expenseVOList9 = new ArrayList<>();
 
         for (int a=0; a<expenseVOList.size(); a++){
             ExpenseVO expenseVO = expenseVOList.get(a);
@@ -153,6 +150,7 @@ public class ExpenseCatFragment extends Fragment implements ExpenseCatViewHolder
             else if(expenseVO.getCategory_id() == 6) expenseVOList6.add(expenseVO);
             else if(expenseVO.getCategory_id() == 7) expenseVOList7.add(expenseVO);
             else if(expenseVO.getCategory_id() == 8) expenseVOList8.add(expenseVO);
+            else if(expenseVO.getCategory_id() == 9) expenseVOList9.add(expenseVO);
         }
         int mainTotal = 0;
         int total0 = 0;
@@ -164,6 +162,7 @@ public class ExpenseCatFragment extends Fragment implements ExpenseCatViewHolder
         int total6 =0;
         int total7 =0;
         int total8 =0;
+        int total9 =0;
         if(expenseVOList0.size() != 0){
             for(int a= 0; a<expenseVOList0.size(); a++){
                 total0 = total0 + expenseVOList0.get(a).getAmount();
@@ -215,9 +214,15 @@ public class ExpenseCatFragment extends Fragment implements ExpenseCatViewHolder
             }
         }
         if(expenseVOList8.size() != 0){
-            for(int a= 0; a<expenseVOList1.size(); a++){
+            for(int a= 0; a<expenseVOList8.size(); a++){
                 total8 = total8 + expenseVOList8.get(a).getAmount();
                 mainTotal +=  expenseVOList8.get(a).getAmount();
+            }
+        }
+        if(expenseVOList9.size() != 0){
+            for(int a= 0; a<expenseVOList9.size(); a++){
+                total9 = total9 + expenseVOList9.get(a).getAmount();
+                mainTotal +=  expenseVOList9.get(a).getAmount();
             }
         }
 
@@ -231,9 +236,9 @@ public class ExpenseCatFragment extends Fragment implements ExpenseCatViewHolder
         expenseCatVOList.add(new ExpenseCatVO(6, MoneySaverConstant.expenseCategory[6], mainTotal, total6));
         expenseCatVOList.add(new ExpenseCatVO(7, MoneySaverConstant.expenseCategory[7], mainTotal, total7));
         expenseCatVOList.add(new ExpenseCatVO(8, MoneySaverConstant.expenseCategory[8], mainTotal, total8));
+        expenseCatVOList.add(new ExpenseCatVO(9, MoneySaverConstant.expenseCategory[9], mainTotal, total9));
 
         adapter.addList(expenseCatVOList);
-
 
     }
 
