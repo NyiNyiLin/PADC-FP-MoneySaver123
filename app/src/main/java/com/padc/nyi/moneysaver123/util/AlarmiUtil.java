@@ -9,6 +9,8 @@ import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.activities.AddBillActivity;
 import com.padc.nyi.moneysaver123.receiver.BillAlarm;
 
+import java.util.Calendar;
+
 /**
  * Created by IN-3442 on 01-Oct-16.
  */
@@ -23,6 +25,9 @@ public class AlarmiUtil {
     public static void setRepeatingAlarm(Context context, Intent intent) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (5 * 1000), pendingIntent);
+
+        Calendar now = Calendar.getInstance();
+        now.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH), 8, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), (86400 * 1000), pendingIntent);
     }
 }

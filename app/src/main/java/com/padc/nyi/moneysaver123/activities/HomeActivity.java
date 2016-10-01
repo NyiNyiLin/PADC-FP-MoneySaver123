@@ -1,5 +1,6 @@
 package com.padc.nyi.moneysaver123.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,11 +13,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
+import com.padc.nyi.moneysaver123.data.vos.BillVO;
 import com.padc.nyi.moneysaver123.fragments.BillFragment;
 import com.padc.nyi.moneysaver123.fragments.ExpenseMainFragment;
 import com.padc.nyi.moneysaver123.fragments.IncomeFragment;
 import com.padc.nyi.moneysaver123.fragments.IncomeMainFrgment;
+import com.padc.nyi.moneysaver123.receiver.BillAlarm;
+import com.padc.nyi.moneysaver123.receiver.DailylAlarm;
+import com.padc.nyi.moneysaver123.util.AlarmiUtil;
+import com.padc.nyi.moneysaver123.util.DateUtil;
+import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +64,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        createDailyNoti();
     }
 
     @Override
@@ -143,5 +153,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .replace(R.id.fl_container, billFragment)
                 .commit();
+    }
+
+    private void createDailyNoti(){
+        Intent intent = new Intent(MoneySaverApp.getContext(), DailylAlarm.class);
+        AlarmiUtil.setRepeatingAlarm(MoneySaverApp.getContext(), intent);
     }
 }

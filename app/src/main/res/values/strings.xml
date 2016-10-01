@@ -55,4 +55,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_expense_cat_id">ExpenseCatIDActivity</string>
 
+    <string name="lbl_daily_noti">သင့္အသံုးစရိတ္ထည့္ရန္ အခ်ိန္က်ေရာက္ပါၿပီ</string>
+
 </resources>
