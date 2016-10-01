@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+import com.padc.nyi.moneysaver123.data.persistence.MoneySaverProvider;
 import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 
 /**
@@ -15,6 +16,7 @@ import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
  */
 public class ExpenseVO{
 
+    int expenseID;
     String title;
     int amount;
     long date;
@@ -77,9 +79,11 @@ public class ExpenseVO{
         cv.put(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_NOTE, note);
         return cv;
     }
+
     public static ExpenseVO parseToExpenseVO(Cursor data){
         ExpenseVO expenseVO = new ExpenseVO();
 
+        expenseVO.setExpenseID(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_ID)));
         expenseVO.setTitle(data.getString(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE)));
         expenseVO.setAmount(data.getInt(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_AMOUNT)));
         expenseVO.setDate(data.getLong(data.getColumnIndex(MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE)));
@@ -93,6 +97,24 @@ public class ExpenseVO{
         Context context = MoneySaverApp.getContext();
         Uri insertedUri = context.getContentResolver().insert(MoneySaverContract.ExpenseEntry.CONTENT_URI, expenseVO.parseToContentValues());
         Log.d(MoneySaverApp.TAG, "Successfully inserted into expense table : " + insertedUri);
+    }
+
+    public static void updateExpense(ExpenseVO expenseVO) {
+        Context context = MoneySaverApp.getContext();
+        context.getContentResolver().update(MoneySaverContract.ExpenseEntry.CONTENT_URI, expenseVO.parseToContentValues(), MoneySaverProvider.sExpenseIDSelection, new String[]{expenseVO.getExpenseID()+""});
+    }
+
+    public static void deleteExpense(int id) {
+        Context context = MoneySaverApp.getContext();
+        context.getContentResolver().delete(MoneySaverContract.ExpenseEntry.CONTENT_URI, MoneySaverProvider.sExpenseIDSelection, new String[]{id+""});
+    }
+
+    public int getExpenseID() {
+        return expenseID;
+    }
+
+    public void setExpenseID(int expenseID) {
+        this.expenseID = expenseID;
     }
 
     public String getTextDate() {

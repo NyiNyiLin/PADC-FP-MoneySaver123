@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -17,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
@@ -39,12 +39,15 @@ import butterknife.ButterKnife;
 /**
  * Created by ZMTH on 9/5/2016.
  */
-public class ExpenseDateFragment extends Fragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem, LoaderManager.LoaderCallbacks<Cursor>{
+public class ExpenseDateFragment extends BaseFragment implements View.OnClickListener, ExpenseViewHolder.ControllerExpenseItem, LoaderManager.LoaderCallbacks<Cursor>{
     @BindView(R.id.rv_expense_list)
     RecyclerView rvExpenseList;
 
     @BindView(R.id.fab_add_expense)
     FloatingActionButton fabAddExpense;
+
+    @BindView(R.id.iv_expense_empty_image)
+    ImageView ivExpenseEmptyImage;
 
     private static final String PARAM_CAT_ID = "ID";
 
@@ -95,20 +98,37 @@ public class ExpenseDateFragment extends Fragment implements View.OnClickListene
         int gridColumnSpanCount = 1;
         rvExpenseList.setLayoutManager(new GridLayoutManager(getContext(), gridColumnSpanCount));
 
-
         return view;
     }
 
 
     @Override
     public void onClick(View view) {
-        Intent intent = AddExpenseActivity.newIntent();
+        Intent intent = AddExpenseActivity.newIntent(AddExpenseActivity.NEWTYPE);
         startActivity(intent);
     }
 
     @Override
     public void onTapExpense(ExpenseVO expenseVO) {
         openDetailDialogeBox(expenseVO);
+    }
+
+    @Override
+    public void onLongPressExpense(ExpenseVO expenseVO, View itemView) {
+        showMenu(itemView, expenseVO.getExpenseID());
+    }
+
+    @Override
+    protected void onTapItemEdit(int id) {
+        super.onTapItemEdit(id);
+        Intent intent = AddExpenseActivity.newIntent(id);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onTapItemDelete(int id) {
+        super.onTapItemDelete(id);
+        ExpenseVO.deleteExpense(id);
     }
 
     public void openDetailDialogeBox(ExpenseVO expenseVO){
@@ -123,7 +143,6 @@ public class ExpenseDateFragment extends Fragment implements View.OnClickListene
 
             }
         });
-
         TextView tvTitle = (TextView) promptView.findViewById(R.id.tv_detail_expense_title);
         TextView tvAmount = (TextView) promptView.findViewById(R.id.tv_detail_expense_amount);
         TextView tvCat = (TextView) promptView.findViewById(R.id.tv_detail_expense_cat);
@@ -163,7 +182,7 @@ public class ExpenseDateFragment extends Fragment implements View.OnClickListene
                 expenseVOList.add(expenseVO);
             }while (data.moveToNext());
         }
-
+        if(expenseVOList.size() > 0) ivExpenseEmptyImage.setVisibility(View.INVISIBLE);
         mExpenseListAdapter.addAllList(addHeadertoList(expenseVOList));
     }
 
@@ -198,6 +217,7 @@ public class ExpenseDateFragment extends Fragment implements View.OnClickListene
         }
         return expenseVOList;
     }
+
 
 
 }

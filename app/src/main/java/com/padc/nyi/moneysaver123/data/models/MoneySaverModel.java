@@ -29,6 +29,9 @@ public class MoneySaverModel extends BaseModel{
     public void saveExpense(ExpenseVO expenseVO){
         ExpenseVO.saveExpense(expenseVO);
     }
+    public void updateExpense(ExpenseVO expenseVO){
+        ExpenseVO.updateExpense(expenseVO);
+    }
 
     public void saveIncome(IncomeVO incomeVO){
         IncomeVO.saveIncome(incomeVO);

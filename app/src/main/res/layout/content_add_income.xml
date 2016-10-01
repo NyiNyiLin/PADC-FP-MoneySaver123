@@ -10,7 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.padc.nyi.moneysaver123.activities.AddIncomeActivity"
-    tools:showIn="@layout/activity_add_income">
+    tools:showIn="@layout/activity_add_income"
+    android:background="@drawable/back97"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -106,12 +108,16 @@
             android:overScrollMode="always"
             android:scrollbarSize="12dp"/>
 
-
         <Button
             android:id="@+id/btn_income_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save_income" />
+            android:text="@string/save_income"
+            android:background="@color/primary"
+            android:textColor="@color/mdtp_white"
+            android:layout_marginTop="@dimen/margin_medium"/>
+
+
     </LinearLayout>
 
 

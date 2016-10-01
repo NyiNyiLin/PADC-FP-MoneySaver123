@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PADC-FP-MoneySaver123</string>
     <string name="action_settings">Settings</string>
@@ -21,7 +22,6 @@
     <string name="lbl_expense_note">မွတ္ခ်က္</string>
     <string name="save_expense">သိမ္းရန္</string>
 
-
     <!-- income -->
     <string name="lbl_income_title">အေၾကာင္းအရာ</string>
     <string name="lbl_income_amount">စုစုေပါင္း ဝင္ေငြ (က်ပ္)</string>
@@ -31,15 +31,27 @@
     <string name="save_income">သိမ္းရန္</string>
     <string name="title_activity_add_bill">ေပးေဆာင္ရမည့္ေဘ ျဖည့္ရန္</string>
 
+    <!-- bill -->
+    <string name="lbl_bill_title">အေၾကာင္းအရာ</string>
+    <string name="lbl_bill_final_date">ေနာက္ဆံုးေပးေဆာင္ရမည့္ ေန႔စြဲ</string>
+    <string name="lbl_bill_remind_date">သတိေပးရမည့္ေန႔</string>
+    <string name="lbl_bill_amount">ေပးေဆာင္ရမည့္ ေငြ (က်ပ္)</string>
+
+    <string name="lbl_bill_yes_text">ေဆာင္ျပီးျပီ</string>
+    <string name="lbl_bill_no_text">မေဆာင္ရေသးပါ</string>
+    <string name="lbl_bill_warning">သတိေပးရမည့္ေန႔သည္ ေနာက္ဆံုးေပးေဆာင္ရမည့္ ေန႔ထက္ေက်ာ္ေနသည္</string>
+
+
+    <!-- left menu -->
     <string name="save_bill">သိမ္းရန္</string>
     <string name="left_menu_expense">သံုးေငြ</string>
     <string name="left_menu_income">ဝင္ေငြ</string>
     <string name="left_menu_expense_category">အသံုးစရိတ္ အမ်ဳိးအစား</string>
-    <string name="left_menu_reminder_for_bill">ေပးေဆာင္ရမည့္ေဘ</string>
+    <string name="left_menu_reminder_for_bill">ေပးေဆာင္ရမည့္ စာရင္း</string>
 
     <string name="content_authority">com.padc.nyi.moneysaver123</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_expense_cat_id">ExpenseCatIDActivity</string>
 

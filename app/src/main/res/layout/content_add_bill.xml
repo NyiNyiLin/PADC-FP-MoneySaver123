@@ -11,7 +11,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.padc.nyi.moneysaver123.activities.AddBillActivity"
     tools:showIn="@layout/activity_add_bill"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/back97">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,38 +27,23 @@
             android:textSize="@dimen/text_regular"/>
 
         <EditText
-            android:id="@+id/et_title"
+            android:id="@+id/et_bill_title"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/backgroud_border"
             android:padding="@dimen/margin_medium"
             android:textSize="@dimen/text_regular"
-            android:layout_marginBottom="@dimen/margin_medium_2"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_expense_date"
-            android:textSize="@dimen/text_regular"/>
-
-        <TextView
-            android:id="@+id/txt_date"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/backgroud_border"
-            android:textSize="@dimen/text_regular"
-            android:padding="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_medium_2"/>
 
         <TextView
             android:id="@+id/txt_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_expense_amount"
+            android:text="@string/lbl_bill_amount"
             android:textSize="@dimen/text_regular"/>
 
         <EditText
-            android:id="@+id/et_amount"
+            android:id="@+id/et__bill_amount"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/backgroud_border"
@@ -66,12 +52,45 @@
             android:inputType="number"
             android:layout_marginBottom="@dimen/margin_medium_2"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_bill_final_date"
+            android:textSize="@dimen/text_regular"/>
+
+        <TextView
+            android:id="@+id/txt_bill_final_date"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroud_border"
+            android:textSize="@dimen/text_regular"
+            android:padding="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium_2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_bill_remind_date"
+            android:textSize="@dimen/text_regular"/>
+
+        <TextView
+            android:id="@+id/txt_bill_remind_date"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroud_border"
+            android:textSize="@dimen/text_regular"
+            android:padding="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium_2"/>
+
         <Button
             android:id="@+id/btn_bill_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save_bill"
+            android:background="@color/primary"
+            android:textColor="@color/mdtp_white"
             />
+
 
     </LinearLayout>
 

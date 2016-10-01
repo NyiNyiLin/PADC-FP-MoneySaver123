@@ -14,7 +14,7 @@ import butterknife.OnClick;
 /**
  * Created by IN-3442 on 11-Sep-16.
  */
-public class ExpenseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class ExpenseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     @BindView(R.id.tv_expense_title)
     TextView tvExpenseTitle;
@@ -27,11 +27,14 @@ public class ExpenseViewHolder extends RecyclerView.ViewHolder implements View.O
 
     private ControllerExpenseItem mControllerExpenseItem;
     private ExpenseVO mExpenseVO;
+    private View view;
 
     public ExpenseViewHolder(View itemView, ControllerExpenseItem mControllerExpenseItem) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        view = itemView;
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
         this.mControllerExpenseItem = mControllerExpenseItem;
 
     }
@@ -48,7 +51,14 @@ public class ExpenseViewHolder extends RecyclerView.ViewHolder implements View.O
         mControllerExpenseItem.onTapExpense(mExpenseVO);
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+        mControllerExpenseItem.onLongPressExpense(mExpenseVO, view);
+        return true;
+    }
+
     public interface ControllerExpenseItem{
         void onTapExpense(ExpenseVO expenseVO);
+        void onLongPressExpense(ExpenseVO expenseVO, View itemView);
     }
 }

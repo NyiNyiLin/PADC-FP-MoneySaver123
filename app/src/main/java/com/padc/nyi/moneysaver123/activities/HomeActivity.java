@@ -104,9 +104,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_income:
                 navigateToIncome();
                 return true;
-            case R.id.nav_expense_category:
-                navigateToExpenseCategory();
-                return true;
             case R.id.nav_bill:
                 navigateToBill();
                 return true;
@@ -136,14 +133,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
-    private void navigateToExpenseCategory(){
-
-        Fragment expenseFragment = ExpenseMainFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_container, expenseFragment)
-                .commit();
-    }
 
     private void navigateToBill(){
         if(actionBar != null){

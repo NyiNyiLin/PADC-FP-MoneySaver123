@@ -13,7 +13,7 @@ public class MoneySaverDBHelper extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "moneySaver.db";
 
     private static final String SQL_CREATE_EXPENSE_TABLE = "CREATE TABLE " + MoneySaverContract.ExpenseEntry.TABLE_NAME + " (" +
-            MoneySaverContract.ExpenseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_TITLE + " TEXT NOT NULL, " +
             MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_AMOUNT + " INTEGER, " +
             MoneySaverContract.ExpenseEntry.COLUMN_EXPENSE_DATE + " INTEGER, " +
@@ -33,8 +33,12 @@ public class MoneySaverDBHelper extends SQLiteOpenHelper{
     private static final String SQL_CREATE_BILL_TABLE = "CREATE TABLE " + MoneySaverContract.BillEntry.TABLE_NAME + " (" +
             MoneySaverContract.BillEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             MoneySaverContract.BillEntry.COLUMN_BILL_TITLE + " TEXT NOT NULL, " +
-            MoneySaverContract.BillEntry.COLUMN_BILL_DATE + " INTEGER, " +
-            MoneySaverContract.BillEntry.COLUMN_BILL_AMOUNT + " INTEGER " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_FINAL_DATE + " INTEGER, " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_REMIND_DATE + " INTEGER, " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_AMOUNT + " INTEGER, " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_IMAGE_ID + " INTEGER, " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_CAT_ID + " INTEGER, " +
+            MoneySaverContract.BillEntry.COLUMN_BILL_IS_FINISH + " INTEGER " +
             " );";
 
     public MoneySaverDBHelper(Context context) {

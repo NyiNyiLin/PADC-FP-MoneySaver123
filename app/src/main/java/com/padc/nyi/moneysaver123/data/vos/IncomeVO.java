@@ -8,12 +8,14 @@ import android.util.Log;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
+import com.padc.nyi.moneysaver123.data.persistence.MoneySaverProvider;
 
 /**
  * Created by ZMTH on 9/11/2016.
  */
 public class IncomeVO {
 
+    int id;
     String title;
     int amount;
     long date;
@@ -59,6 +61,7 @@ public class IncomeVO {
     public static IncomeVO parseToIncomeVO(Cursor data){
         IncomeVO incomeVO = new IncomeVO();
 
+        incomeVO.setId(data.getInt(data.getColumnIndex(MoneySaverContract.IncomeEntry._ID)));
         incomeVO.setTitle(data.getString(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_TITLE)));
         incomeVO.setAmount(data.getInt(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_AMOUNT)));
         incomeVO.setDate(data.getLong(data.getColumnIndex(MoneySaverContract.IncomeEntry.COLUMN_INCOME_DATE)));
@@ -72,6 +75,24 @@ public class IncomeVO {
         Context context = MoneySaverApp.getContext();
         Uri insertedUri = context.getContentResolver().insert(MoneySaverContract.IncomeEntry.CONTENT_URI, incomeVO.parseToContentValues());
         Log.d(MoneySaverApp.TAG, "Successfully inserted into income table : " + insertedUri);
+    }
+
+    public static void updateIncome(IncomeVO incomeVO) {
+        Context context = MoneySaverApp.getContext();
+        context.getContentResolver().update(MoneySaverContract.IncomeEntry.CONTENT_URI, incomeVO.parseToContentValues(), MoneySaverProvider.sIncomeIDSelection, new String[]{incomeVO.getId()+""});
+    }
+
+    public static void deleteIncome(int id) {
+        Context context = MoneySaverApp.getContext();
+        context.getContentResolver().delete(MoneySaverContract.IncomeEntry.CONTENT_URI, MoneySaverProvider.sIncomeIDSelection, new String[]{id+""});
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTextDate() {
