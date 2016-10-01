@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -49,13 +50,20 @@ public class ExpenseCatIDActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-
-
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frameLayout, ExpenseDateFragment.newInstance(id))
                 .commit();
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
+
