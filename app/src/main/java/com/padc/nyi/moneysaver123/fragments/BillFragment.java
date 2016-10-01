@@ -1,5 +1,6 @@
 package com.padc.nyi.moneysaver123.fragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,6 +24,7 @@ import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.activities.AddBillActivity;
 import com.padc.nyi.moneysaver123.adapters.BillListAdapter;
+import com.padc.nyi.moneysaver123.data.models.MoneySaverModel;
 import com.padc.nyi.moneysaver123.data.persistence.MoneySaverContract;
 import com.padc.nyi.moneysaver123.data.vos.BillVO;
 import com.padc.nyi.moneysaver123.data.vos.ExpenseVO;
@@ -31,6 +33,7 @@ import com.padc.nyi.moneysaver123.util.MoneySaverConstant;
 import com.padc.nyi.moneysaver123.views.holders.BillViewHolder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -118,28 +121,21 @@ public class BillFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onTapBill(BillVO billVO) {
-        openDetailDialogeBox(billVO);
+        openDetailDialogeBox(billVO, getContext());
     }
 
 
-    public void openDetailDialogeBox(final BillVO billVO){
-        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+    public void openDetailDialogeBox(final BillVO billVO, Context context){
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
         View promptView = layoutInflater.inflate(R.layout.popup_detail_bill, null);
-        final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
 
         alert.setView(promptView);
         alert.setPositiveButton(R.string.lbl_bill_yes_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                ExpenseVO expenseVO = new ExpenseVO();
-                expenseVO.setTitle(billVO.getTitle());
-                expenseVO.setCategory_id(billVO.getCatID());
-                expenseVO.setAmount(billVO.getAmount());
-                //TODO
-                //expenseVO.setDate();
-
-                BillVO.deleteBill(billVO.getBillID());
-                ExpenseVO.saveExpense(expenseVO);
+                MoneySaverModel.getInstance().transferBillToExpense(billVO);
             }
         });
         alert.setNegativeButton(R.string.lbl_bill_no_text, new DialogInterface.OnClickListener() {

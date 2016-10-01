@@ -130,10 +130,13 @@ public class BillVO {
         return billVO;
     }
 
-    public static void saveReminderForBill(BillVO billVO) {
+    public static int saveReminderForBill(BillVO billVO) {
         Context context = MoneySaverApp.getContext();
         Uri insertedUri = context.getContentResolver().insert(MoneySaverContract.BillEntry.CONTENT_URI, billVO.parseToContentValues());
+        String insertedString = insertedUri.toString();
+        String billInsertedID = insertedString.substring(42);
         Log.d(MoneySaverApp.TAG, "Successfully inserted into bill table : " + insertedUri);
+        return Integer.parseInt(billInsertedID);
     }
 
     public static void updateBill(BillVO billVO) {

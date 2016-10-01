@@ -13,6 +13,7 @@ public class MoneySaverConstant {
     public static final int LoaderConstantBill = 5;
     public static final int LoaderConstantexpenseEdit = 6;
     public static final int LoaderConstantIncomeEdit = 7;
+    public static final int LoaderConstantBillAlarmDisplay = 8;
 
     public static final int billFinish = 0;
     public static final int billNotYet = 1;

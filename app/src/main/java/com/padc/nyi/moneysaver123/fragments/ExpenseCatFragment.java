@@ -214,13 +214,13 @@ public class ExpenseCatFragment extends Fragment implements ExpenseCatViewHolder
             }
         }
         if(expenseVOList8.size() != 0){
-            for(int a= 0; a<expenseVOList1.size(); a++){
+            for(int a= 0; a<expenseVOList8.size(); a++){
                 total8 = total8 + expenseVOList8.get(a).getAmount();
                 mainTotal +=  expenseVOList8.get(a).getAmount();
             }
         }
         if(expenseVOList9.size() != 0){
-            for(int a= 0; a<expenseVOList1.size(); a++){
+            for(int a= 0; a<expenseVOList9.size(); a++){
                 total9 = total9 + expenseVOList9.get(a).getAmount();
                 mainTotal +=  expenseVOList9.get(a).getAmount();
             }

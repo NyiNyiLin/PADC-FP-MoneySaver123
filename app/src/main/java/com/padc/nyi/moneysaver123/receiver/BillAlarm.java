@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.activities.AddBillActivity;
+import com.padc.nyi.moneysaver123.activities.AlarmDisplayActivity;
 import com.padc.nyi.moneysaver123.activities.HomeActivity;
 
 /**
@@ -26,8 +27,9 @@ public class BillAlarm extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         String title = intent.getStringExtra(AddBillActivity.NOTI_TITLE);
         String body = intent.getStringExtra(AddBillActivity.NOTI_BODY);
+        int billID = intent.getIntExtra(AddBillActivity.BILL_ID, 0);
 
-        Intent it =  new Intent(context, HomeActivity.class);
+        Intent it =  AlarmDisplayActivity.newIntent(billID);
         createNotification(context, it, "new mensage", title, body);
     }
 

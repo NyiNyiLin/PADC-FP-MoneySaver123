@@ -14,10 +14,10 @@ import com.padc.nyi.moneysaver123.receiver.BillAlarm;
  */
 public class AlarmiUtil {
 
-    public static void setOneTimeAlarm(Context context, Intent intent) {
+    public static void setOneTimeAlarm(Context context, Intent intent, long alarmTime) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (5 * 1000), pendingIntent);
+        am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
     }
 
     public static void setRepeatingAlarm(Context context, Intent intent) {

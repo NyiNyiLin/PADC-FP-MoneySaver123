@@ -41,6 +41,7 @@ public class AddBillActivity extends AppCompatActivity  implements  DatePickerDi
 
     public static final String NOTI_TITLE = "title";
     public static final String NOTI_BODY = "body";
+    public static final String BILL_ID = "bill_id";
 
     private final int FINAL_DATE = 1;
     private final int REMIND_DATE = 2;
@@ -169,7 +170,8 @@ public class AddBillActivity extends AppCompatActivity  implements  DatePickerDi
             billVO.setIsFinish(MoneySaverConstant.billNotYet);
             billVO.setCatID(9);
 
-            MoneySaverModel.getInstance().saveReminderForBill(billVO);
+            int billID = MoneySaverModel.getInstance().saveReminderForBill(billVO);
+            billVO.setBillID(billID);
             createNoti(billVO);
             clearBillUserInputData();
             successfullySaveDataDialogBox();
@@ -226,7 +228,9 @@ public class AddBillActivity extends AppCompatActivity  implements  DatePickerDi
     private void createNoti(BillVO billVO){
         Intent intent = new Intent(MoneySaverApp.getContext(), BillAlarm.class);
         intent.putExtra(NOTI_TITLE, billVO.getTitle());
-        intent.putExtra(NOTI_BODY, DateUtil.changeMilliTimeToText(billVO.getFinalDate()) + MoneySaverConstant.textLastDayRemin);
-        AlarmiUtil.setOneTimeAlarm(MoneySaverApp.getContext(), intent);
+        intent.putExtra(NOTI_BODY, DateUtil.changeMilliTimeToText(billVO.getFinalDate()) + " " + MoneySaverConstant.textLastDayRemin);
+        intent.putExtra(BILL_ID, billVO.getBillID());
+        //AlarmiUtil.setOneTimeAlarm(MoneySaverApp.getContext(), intent, billVO.getRemindDate());
+        AlarmiUtil.setOneTimeAlarm(MoneySaverApp.getContext(), intent, System.currentTimeMillis() + (5 * 1000));
     }
 }
