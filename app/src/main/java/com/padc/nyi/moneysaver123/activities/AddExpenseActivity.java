@@ -64,6 +64,9 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
     @BindView(R.id.btn_expense_save)
     Button btnExpenseSave;
 
+    @BindView(R.id.tv_screen_title)
+    TextView tvScreenTitle;
+
 
     ExpenseVO expenseVO;
 
@@ -94,8 +97,10 @@ public class AddExpenseActivity extends AppCompatActivity implements  DatePicker
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setTitle("သံုးလိုက္ေသာ ေငြထည့္ရန္");
+            actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        tvScreenTitle.setText(getResources().getText(R.string.title_activity_add_expense));
 
 
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, MoneySaverConstant.expenseCategory);

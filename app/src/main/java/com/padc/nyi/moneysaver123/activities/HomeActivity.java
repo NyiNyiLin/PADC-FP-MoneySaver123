@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
@@ -41,7 +42,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.tv_screen_title)
+    TextView tvScreenTitle;
+
     ActionBar actionBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
 
 
         if(savedInstanceState == null){
@@ -85,8 +93,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
+        //getMenuInflater().inflate(R.menu.menu_home, menu);
+        return false;
     }
 
     @Override
@@ -94,12 +102,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        /*int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -127,9 +135,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     //call fragment
     private void navigateToExpense(){
-        if(actionBar != null){
-            actionBar.setTitle("အသံုးစရိတ္စာရင္း");
-        }
+        tvScreenTitle.setText("အသံုးစရိတ္စာရင္း");
+
         Fragment expenseFragment = ExpenseMainFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -138,9 +145,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void navigateToIncome(){
-        if(actionBar != null){
-            actionBar.setTitle("ဝင္ေငြစာရင္း ");
-        }
+        tvScreenTitle.setText("ဝင္ေငြစာရင္း");
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fl_container, IncomeMainFrgment.newInstance())
@@ -149,9 +154,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     private void navigateToBill(){
-        if(actionBar != null){
-            actionBar.setTitle("ေပးေဆာင္ရမည့္ေဘစာရင္း");
-        }
+        tvScreenTitle.setText("ေပးေဆာင္ရမည့္ေဘစာရင္း");
         BillFragment billFragment = new BillFragment();
         getSupportFragmentManager()
                 .beginTransaction()

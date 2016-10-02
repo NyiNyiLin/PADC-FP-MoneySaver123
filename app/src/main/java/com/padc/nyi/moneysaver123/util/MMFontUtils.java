@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
@@ -30,6 +31,7 @@ public class MMFontUtils {
     public static void setMMFont(TextView view) {
         view.setTypeface(mmTypeFace);
     }
+
 
     private static void applyMMFontToMenuItem(MenuItem menuItem) {
         SpannableString mNewTitle = new SpannableString(menuItem.getTitle());

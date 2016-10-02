@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.padc.nyi.moneysaver123.MoneySaverApp;
 import com.padc.nyi.moneysaver123.R;
@@ -24,6 +25,9 @@ public class ExpenseCatIDActivity extends AppCompatActivity {
     @BindView(R.id.frameLayout)
     FrameLayout frameLayout;
 
+    @BindView(R.id.tv_screen_title)
+    TextView tvScreenTitle;
+
     private static final String paramID = "ID";
 
     public static Intent newIntent(int id){
@@ -36,6 +40,9 @@ public class ExpenseCatIDActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_cat_id);
+
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,11 +51,13 @@ public class ExpenseCatIDActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
+            actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setTitle(MoneySaverConstant.expenseCategory[id]);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        tvScreenTitle.setText(MoneySaverConstant.expenseCategory[id]);
 
-        ButterKnife.bind(this);
+
 
         getSupportFragmentManager()
                 .beginTransaction()

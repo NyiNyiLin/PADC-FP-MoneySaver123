@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/icon_money_bag"/>
 
     <com.padc.nyi.moneysaver123.components.MMTextView
         android:layout_width="match_parent"

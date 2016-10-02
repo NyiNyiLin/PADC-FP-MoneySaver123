@@ -64,13 +64,15 @@ public class AddBillActivity extends AppCompatActivity  implements  DatePickerDi
     @BindView(R.id.btn_bill_save)
     Button btnBillSave;
 
+    @BindView(R.id.tv_screen_title)
+    TextView tvScreenTitle;
+
     private BillVO billVO;
 
     private long dateInNumFinal;
     private long dateInNumRemind;
 
     private int dateType;
-
 
     public static Intent newIntent(){
         Intent intent = new Intent(MoneySaverApp.getContext(), AddBillActivity.class);
@@ -88,7 +90,9 @@ public class AddBillActivity extends AppCompatActivity  implements  DatePickerDi
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
         }
+        tvScreenTitle.setText(getResources().getText(R.string.title_activity_add_bill));
 
         getCurrentDate();
     }

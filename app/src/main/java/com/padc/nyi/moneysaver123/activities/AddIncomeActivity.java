@@ -66,6 +66,9 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
     @BindView(R.id.btn_income_save)
     TextView btnIncomeSave;
 
+    @BindView(R.id.tv_screen_title)
+    TextView tvScreenTitle;
+
     SimpleDateFormat dateFormatter;
     IncomeVO incomeVO;
 
@@ -98,7 +101,9 @@ public class AddIncomeActivity extends AppCompatActivity implements DatePickerDi
         if(actionBar != null){
             actionBar.setTitle("ဝင္ေငြထည့္ရန္");
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
         }
+        tvScreenTitle.setText(getResources().getText(R.string.title_activity_add_income));
 
         final String dummyIncomeCat[] = {"လစာ", "ေရာင္းရေငြ", "ေခ်းေငြ"};
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, dummyIncomeCat);
