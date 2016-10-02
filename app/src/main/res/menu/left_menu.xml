@@ -4,15 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_expense"
-            android:icon="@drawable/drawer_expense"
-            android:title="@string/left_menu_expense" />
+            android:icon="@drawable/ic_fiber_manual_record_black_24dp"
+            android:title="@string/left_menu_expense"
+            android:checked="true"/>
         <item
             android:id="@+id/nav_income"
-            android:icon="@drawable/drawer_income"
+            android:icon="@drawable/ic_fiber_manual_record_black_income_24dp"
             android:title="@string/left_menu_income" />
         <item
             android:id="@+id/nav_bill"
-            android:icon="@drawable/drawer_bill"
+            android:icon="@drawable/ic_fiber_manual_record_black_bill_24dp"
             android:title="@string/left_menu_reminder_for_bill" />
     </group>
 

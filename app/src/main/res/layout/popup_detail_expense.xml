@@ -18,7 +18,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:textColor="@color/primary"
             android:layout_toRightOf="@id/iv_title_image"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_expense_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_small">
 
-        <ImageView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/iv_amount_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:textColor="@color/primary"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_cat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
             android:textColor="@color/primary"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_expense_cat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
             android:textColor="@color/primary"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_expense_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
             android:textColor="@color/primary"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_expense_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

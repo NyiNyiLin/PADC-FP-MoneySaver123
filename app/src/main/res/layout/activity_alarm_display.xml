@@ -19,7 +19,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textColor="@color/primary"
             android:layout_toRightOf="@id/iv_title_image"/>
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_bill__alarm_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:textColor="@color/primary"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_bill_alarm_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
             android:textColor="@color/primary"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_bill_alarm_final_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             android:layout_marginRight="@dimen/margin_medium_2"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_lbl_detail_remind_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
             android:textColor="@color/primary"
             />
 
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_detail_bill_alarm_remind_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
             android:textSize="@dimen/text_regular_3x"/>
     </RelativeLayout>
 
-    <Button
+    <com.padc.nyi.moneysaver123.components.MMButton
         android:id="@+id/btn_bill_detail_alarm_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
         android:padding="@dimen/margin_medium"
         />
 
-    <Button
+    <com.padc.nyi.moneysaver123.components.MMButton
         android:id="@+id/btn_bill_detail_alarm_not_yet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--income-->
-    <string name="title_activity_add_income">AddIncomeActivity</string>
+    <string name="title_activity_add_income">ဝင္ေငြထည့္ရန္</string>
     <string name="label_date">Date</string>
     <string name="label_category">Category</string>
     <string name="lbl_amount">Amount</string>
@@ -56,5 +56,6 @@
     <string name="title_activity_expense_cat_id">ExpenseCatIDActivity</string>
 
     <string name="lbl_daily_noti">သင့္အသံုးစရိတ္ထည့္ရန္ အခ်ိန္က်ေရာက္ပါၿပီ</string>
+    <string name="title_activity_add_expense">သံုးလိုက္ေသာ ေငြထည့္ရန္</string>
 
 </resources>

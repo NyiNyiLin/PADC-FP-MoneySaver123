@@ -24,7 +24,7 @@
             android:weightSum="2">
 
 
-            <TextView
+            <com.padc.nyi.moneysaver123.components.MMTextView
                 android:id="@+id/tv_expense_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:layout_marginBottom="@dimen/margin_small"/>
 
-            <TextView
+            <com.padc.nyi.moneysaver123.components.MMTextView
                 android:id="@+id/tv_expense_cat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_weight="1"/>
 
         </LinearLayout>
-        <TextView
+        <com.padc.nyi.moneysaver123.components.MMTextView
             android:id="@+id/tv_expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

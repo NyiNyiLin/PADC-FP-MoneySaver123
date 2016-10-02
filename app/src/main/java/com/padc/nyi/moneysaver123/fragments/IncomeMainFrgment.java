@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.padc.nyi.moneysaver123.R;
 import com.padc.nyi.moneysaver123.adapters.ExpensePagerAdapter;
+import com.padc.nyi.moneysaver123.util.MMFontUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,6 +71,8 @@ public class IncomeMainFrgment extends Fragment {
         pagerIncome.setOffscreenPageLimit(mIncomePagerAdapter.getCount());
 
         tlIncome.setupWithViewPager(pagerIncome);
+
+        MMFontUtils.applyMMFontToTabLayout(tlIncome);
 
         return view;
     }

@@ -23,7 +23,7 @@
                 android:background="@color/primary"
                 />
 
-            <TextView
+            <com.padc.nyi.moneysaver123.components.MMTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="September"

@@ -8,7 +8,7 @@
     android:background="@color/primary"
     android:padding="@dimen/margin_medium">
 
-    <TextView
+    <com.padc.nyi.moneysaver123.components.MMTextView
         android:id="@+id/tv_item_expense_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:text="date"/>
 
-    <TextView
+    <com.padc.nyi.moneysaver123.components.MMTextView
         android:id="@+id/tv_item_expense_header_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
